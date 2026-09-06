@@ -6,7 +6,7 @@
 
 export class AIService {
   constructor() {
-    // Read API key from localStorage or prompt configuration
+    // Read API key from localStorage only — NEVER hardcode API keys in source files
     this.apiKey = localStorage.getItem('devpulse_gemini_key') || '';
     this.config = {
       persona: 'tech_lead',
