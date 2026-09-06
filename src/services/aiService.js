@@ -91,7 +91,8 @@ export class AIService {
   }
 
   async callGeminiAPI(userMessage, toolData) {
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${this.apiKey.trim()}`;
+    // Menggunakan endpoint model gemini-3.1-flash-lite (v1beta)
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${this.apiKey.trim()}`;
     
     let promptContent = `${this.getSystemPrompt()}\n\n`;
     
