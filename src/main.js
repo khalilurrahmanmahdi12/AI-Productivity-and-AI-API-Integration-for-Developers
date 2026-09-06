@@ -74,7 +74,7 @@ function renderQuickPrompts() {
   elements.quickPromptsContainer.innerHTML = '';
   PROMPT_TEMPLATES.forEach(item => {
     const btn = document.createElement('button');
-    btn.className = 'px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-indigo-600/30 hover:border-indigo-500/50 border border-slate-800 text-xs text-slate-300 transition shrink-0 flex items-center gap-1.5 font-medium cursor-pointer';
+    btn.className = 'px-3.5 py-1.5 rounded-xl bg-[#0b0f19] hover:bg-indigo-600/20 hover:border-indigo-500/50 border border-slate-800 text-xs text-slate-300 transition shrink-0 flex items-center gap-1.5 font-medium cursor-pointer shadow-sm';
     btn.innerHTML = item.label;
     btn.addEventListener('click', () => {
       elements.userInput.value = item.prompt;
@@ -92,8 +92,8 @@ function renderSessionsList() {
     const item = document.createElement('div');
     item.className = `p-2.5 rounded-xl border text-xs cursor-pointer flex items-center justify-between transition ${
       isSelected
-        ? 'bg-indigo-600/20 border-indigo-500/50 text-indigo-100 font-semibold shadow-md shadow-indigo-600/10'
-        : 'bg-slate-900/60 border-slate-800/80 text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+        ? 'bg-indigo-600/20 border-indigo-500/50 text-indigo-100 font-semibold shadow-md shadow-indigo-950/20'
+        : 'bg-[#060911]/80 border-slate-800/80 text-slate-400 hover:bg-slate-900 hover:text-slate-200'
     }`;
     
     item.innerHTML = `
@@ -197,33 +197,33 @@ function loadCurrentSession() {
 // Render Welcome Banner for Empty Chat
 function renderWelcomeBanner() {
   elements.chatFeed.innerHTML = `
-    <div id="welcome-banner-box" class="py-10 px-4 text-center max-w-2xl mx-auto space-y-6 animate-fade-in my-auto">
-      <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-indigo-600 to-cyan-500 p-0.5 shadow-2xl shadow-indigo-500/20 mx-auto">
-        <div class="w-full h-full bg-slate-950 rounded-[22px] flex items-center justify-center">
-          <i data-lucide="cpu" class="w-10 h-10 text-indigo-400"></i>
+    <div id="welcome-banner-box" class="py-12 px-4 text-center max-w-2xl mx-auto space-y-6 animate-fade-in my-auto">
+      <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-indigo-500 via-indigo-600 to-violet-600 p-0.5 shadow-2xl shadow-indigo-500/30 mx-auto ring-1 ring-white/20">
+        <div class="w-full h-full bg-[#060911] rounded-[22px] flex items-center justify-center">
+          <i data-lucide="sparkles" class="w-9 h-9 text-indigo-400"></i>
         </div>
       </div>
       <div>
-        <h2 class="text-2xl font-bold text-slate-100 tracking-tight">DevPulse AI Assistant</h2>
-        <p class="text-xs text-slate-400 mt-2 leading-relaxed max-w-lg mx-auto">
-          AI Productivity Assistant serba guna untuk pengembang perangkat lunak. Atur gaya bahasa, domain pengetahuan, dan manfaatkan integrasi API eksternal secara langsung.
+        <h2 class="text-2xl font-extrabold text-white tracking-tight">DevPulse AI Workspace</h2>
+        <p class="text-xs text-slate-400 mt-2.5 leading-relaxed max-w-lg mx-auto font-medium">
+          Asisten AI pengembang perangkat lunak dengan konfigurasi persona fleksibel, analisis kode mendalam, dan integrasi API eksternal secara real-time.
         </p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-left pt-2">
-        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-indigo-500/40 transition shadow-lg">
+        <div class="p-4.5 rounded-2xl bg-[#0b0f19]/90 border border-slate-800 hover:border-indigo-500/40 transition shadow-xl backdrop-blur-sm">
           <div class="flex items-center gap-2 text-indigo-400 text-xs font-bold uppercase tracking-wider">
             <i data-lucide="sliders" class="w-4 h-4"></i>
             Parameter AI Kreatif
           </div>
-          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Ubah persona (Tech Lead, Santai, Code Optimizer, ELI5) & domain pengetahuan.</p>
+          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed font-medium">Atur persona (Tech Lead, Santai, Code Optimizer, ELI5) & domain pengetahuan.</p>
         </div>
-        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/40 transition shadow-lg">
+        <div class="p-4.5 rounded-2xl bg-[#0b0f19]/90 border border-slate-800 hover:border-cyan-500/40 transition shadow-xl backdrop-blur-sm">
           <div class="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider">
             <i data-lucide="plug" class="w-4 h-4"></i>
             Integrasi API Real-time
           </div>
-          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Panggil GitHub REST API, Live Weather, HackerNews Feed, dan Jalankan JS Sandbox.</p>
+          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed font-medium">Inspeksi GitHub API, cuaca dev hub, HackerNews feed, dan jalankan JS Sandbox.</p>
         </div>
       </div>
     </div>
@@ -233,7 +233,6 @@ function renderWelcomeBanner() {
 
 // Append Message Bubble to Feed
 function appendMessageToFeed(role, content, toolBadge = null, shouldScroll = true) {
-  // Remove welcome banner ONLY if present
   const welcomeBanner = document.getElementById('welcome-banner-box');
   if (welcomeBanner) {
     welcomeBanner.remove();
@@ -241,19 +240,18 @@ function appendMessageToFeed(role, content, toolBadge = null, shouldScroll = tru
 
   const isUser = role === 'user';
   const msgDiv = document.createElement('div');
-  msgDiv.className = `w-full flex ${isUser ? 'justify-end my-3' : 'justify-start my-3'} animate-fade-in`;
+  msgDiv.className = `w-full flex ${isUser ? 'justify-end my-3.5' : 'justify-start my-3.5'} animate-fade-in`;
 
   if (isUser) {
     msgDiv.innerHTML = `
-      <div class="flex items-start gap-2.5 max-w-2xl">
-        <div class="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-4 py-3 rounded-2xl rounded-tr-xs text-sm leading-relaxed whitespace-pre-wrap shadow-lg shadow-indigo-600/20 border border-indigo-400/30">
-          <div class="text-[10px] text-indigo-200 font-mono font-bold uppercase tracking-wider mb-1 flex items-center justify-end gap-1.5 border-b border-indigo-500/40 pb-1">
-            <span>PERTANYAAN USER</span>
-            <i data-lucide="user" class="w-3 h-3 text-indigo-200"></i>
+      <div class="flex items-start gap-3 max-w-xl">
+        <div class="bg-gradient-to-r from-indigo-600/90 via-indigo-700/90 to-violet-700/90 backdrop-blur-md text-white px-4 py-3 rounded-2xl rounded-tr-xs text-sm leading-relaxed whitespace-pre-wrap shadow-xl shadow-indigo-950/30 border border-indigo-400/20">
+          <div class="text-[10px] text-indigo-200/90 font-mono font-bold uppercase tracking-widest mb-1.5 flex items-center justify-between border-b border-indigo-400/20 pb-1.5">
+            <span class="flex items-center gap-1.5"><i data-lucide="user" class="w-3 h-3 text-indigo-300"></i> PERTANYAAN USER</span>
           </div>
           <div class="text-slate-100 font-medium">${escapeHtml(content)}</div>
         </div>
-        <div class="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white shrink-0 text-xs font-bold shadow-md">YOU</div>
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-600 flex items-center justify-center text-white shrink-0 text-xs font-bold shadow-lg ring-1 ring-white/20">YOU</div>
       </div>
     `;
     lastUserMessageElement = msgDiv;
@@ -261,18 +259,18 @@ function appendMessageToFeed(role, content, toolBadge = null, shouldScroll = tru
     const parsedMarkdown = window.marked ? window.marked.parse(content) : content;
     
     msgDiv.innerHTML = `
-      <div class="flex items-start gap-3 w-full">
-        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center text-white shrink-0 shadow-md">
-          <i data-lucide="cpu" class="w-4 h-4"></i>
+      <div class="flex items-start gap-3.5 w-full">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-indigo-600 to-cyan-500 flex items-center justify-center text-white shrink-0 shadow-lg ring-1 ring-white/20">
+          <i data-lucide="sparkles" class="w-4.5 h-4.5"></i>
         </div>
         
-        <div class="flex-1 bg-slate-900/90 border border-slate-800 text-slate-200 p-4 sm:p-5 rounded-2xl rounded-tl-xs text-sm shadow-xl space-y-3 overflow-hidden">
+        <div class="flex-1 bg-[#0b0f19]/90 border border-slate-800/90 text-slate-200 p-5 rounded-2xl rounded-tl-xs text-sm shadow-2xl space-y-3.5 overflow-hidden backdrop-blur-sm">
           ${toolBadge ? `<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-mono font-medium">${toolBadge}</div>` : ''}
           <div class="markdown-body leading-relaxed">${parsedMarkdown}</div>
           
           <div class="flex items-center justify-between pt-3 border-t border-slate-800/80 text-xs text-slate-400">
-            <span class="flex items-center gap-1.5 font-mono text-[11px]"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i> DevPulse AI Verified (Gemini API)</span>
-            <button class="copy-msg-btn hover:text-slate-200 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 transition text-xs" title="Salin Respons">
+            <span class="flex items-center gap-1.5 font-mono text-[11px]"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i> Verified AI Engine</span>
+            <button class="copy-msg-btn hover:text-slate-200 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 transition text-xs font-medium" title="Salin Respons">
               <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin
             </button>
           </div>
@@ -311,7 +309,7 @@ function appendMessageToFeed(role, content, toolBadge = null, shouldScroll = tru
   }
 }
 
-// Smart Scroll to ensure User Question remains visible on screen along with AI answer
+// Smart Scroll
 function smartScrollToUserQuestion() {
   if (lastUserMessageElement) {
     lastUserMessageElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -320,7 +318,7 @@ function smartScrollToUserQuestion() {
   }
 }
 
-// Attach Live JS Runner Button to JavaScript code blocks inside AI response
+// Attach Live JS Runner Button
 function setupSandboxRunners(container) {
   if (!elements.toolSandbox.checked) return;
 
@@ -343,7 +341,7 @@ function setupSandboxRunners(container) {
       let outputBox = pre.parentElement.querySelector('.sandbox-output-box');
       if (!outputBox) {
         outputBox = document.createElement('div');
-        outputBox.className = 'sandbox-output-box mt-3 p-3.5 rounded-xl bg-slate-950 border border-emerald-500/40 text-xs font-mono space-y-1.5 shadow-inner';
+        outputBox.className = 'sandbox-output-box mt-3 p-3.5 rounded-xl bg-[#060911] border border-emerald-500/40 text-xs font-mono space-y-1.5 shadow-inner';
         pre.after(outputBox);
       }
 
@@ -358,17 +356,17 @@ function setupSandboxRunners(container) {
   });
 }
 
-// Typing Indicator for AI Thinking state
+// Typing Indicator
 function showTypingIndicator() {
   const indicator = document.createElement('div');
   indicator.id = 'ai-typing-indicator';
   indicator.className = 'w-full flex justify-start my-3 animate-fade-in';
   indicator.innerHTML = `
-    <div class="flex items-start gap-3">
-      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center text-white shrink-0 shadow-md">
-        <i data-lucide="cpu" class="w-4 h-4"></i>
+    <div class="flex items-start gap-3.5">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-indigo-600 to-cyan-500 flex items-center justify-center text-white shrink-0 shadow-lg ring-1 ring-white/20">
+        <i data-lucide="sparkles" class="w-4.5 h-4.5"></i>
       </div>
-      <div class="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl rounded-tl-xs flex items-center gap-2.5 shadow-xl">
+      <div class="bg-[#0b0f19]/90 border border-slate-800 p-4 rounded-2xl rounded-tl-xs flex items-center gap-2.5 shadow-2xl">
         <span class="w-2.5 h-2.5 rounded-full bg-indigo-400 typing-dot"></span>
         <span class="w-2.5 h-2.5 rounded-full bg-indigo-400 typing-dot"></span>
         <span class="w-2.5 h-2.5 rounded-full bg-indigo-400 typing-dot"></span>
@@ -482,10 +480,10 @@ function updateBadges() {
   elements.badgeDomainText.textContent = domains[aiService.config.domain] || 'Web Development';
   
   if (aiService.config.memoryEnabled) {
-    elements.badgeMemoryStatus.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 font-mono';
+    elements.badgeMemoryStatus.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 font-mono';
     elements.badgeMemoryStatus.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Memory On`;
   } else {
-    elements.badgeMemoryStatus.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700 text-xs text-slate-400 font-mono';
+    elements.badgeMemoryStatus.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400 font-mono';
     elements.badgeMemoryStatus.innerHTML = `<span class="w-2 h-2 rounded-full bg-slate-500"></span> Memory Off`;
   }
 }
