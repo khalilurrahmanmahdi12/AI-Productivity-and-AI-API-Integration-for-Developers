@@ -13,14 +13,14 @@
 
 ## 📸 Screenshots User Interface
 
-### 1. Live Application UI Screenshot
-![DevPulse AI Live Application UI Screenshot](./screenshots/ui_live_screenshot.png)
+### 1. Live Weather & Local Time API Integration
+![DevPulse AI Weather API Integration](./screenshots/1_weather_api.png)
 
-### 2. Dashboard Interface Preview
-![DevPulse AI Dashboard Preview](./screenshots/dashboard_preview.svg)
+### 2. Code Refactoring & In-Chat JS Code Sandbox Executor
+![DevPulse AI Code Refactoring & Sandbox](./screenshots/2_code_refactor_sandbox.png)
 
 ### 3. Panel Konfigurasi Parameter AI (Persona, Domain, Temperature, Memory, API Keys)
-![DevPulse AI Parameter Configuration](./screenshots/parameter_config.svg)
+![DevPulse AI Parameter Configuration Modal](./screenshots/3_ai_parameter_config.png)
 
 ---
 
@@ -48,7 +48,7 @@
 
 ### 🔌 3. Integrasi API Eksternal (Live External Tools)
 1. 🐙 **GitHub REST API Inspector**: Mengambil informasi repositori publik (stars, forks, open issues, lisensi) dan profil pengembang secara langsung.
-2. 🌤️ **Live Weather & Timezone API**: Mengecek cuaca & waktu lokal di pusat teknologi dunia (Jakarta, Tokyo, San Francisco, London, Singapore).
+2. 🌤️ **Live Weather & Timezone API**: Mengecek cuaca & waktu lokal di pusat teknologi dunia (Jakarta, Kalimantan, Tokyo, San Francisco, London).
 3. 📰 **HackerNews Developer Feed**: Menampilkan tren berita teknologi terbaru dari HackerNews API.
 4. 🧪 **In-Chat JavaScript Code Sandbox**: Eksekusi snippet kode JS secara aman langsung di dalam UI percakapan dengan *console capture*.
 
@@ -99,10 +99,10 @@
 ├── package.json                # Project dependencies & scripts
 ├── vite.config.js              # Vite configuration
 ├── README.md                   # Repositori & Dokumentasi Proyek
-├── screenshots/                # Screenshots & UI Visual Mockups
-│   ├── ui_live_screenshot.png  # Live browser interface screenshot
-│   ├── dashboard_preview.svg   # Dashboard SVG mockup
-│   └── parameter_config.svg    # Parameter drawer SVG mockup
+├── screenshots/                # Real User Interface Screenshots
+│   ├── 1_weather_api.png       # Live Weather API screenshot
+│   ├── 2_code_refactor_sandbox.png # Code refactoring & Sandbox screenshot
+│   └── 3_ai_parameter_config.png   # AI Parameter Config modal screenshot
 └── src/
     ├── main.js                 # Entry Point Script & Event Handlers
     ├── style.css               # Custom Styles & Tailwind imports
