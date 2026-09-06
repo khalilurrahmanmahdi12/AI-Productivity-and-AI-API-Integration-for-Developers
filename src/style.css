@@ -141,3 +141,45 @@
 .animate-fade-in {
   animation: fadeIn 0.2s ease-out forwards;
 }
+
+/* ========================
+   Mobile Responsiveness
+   ======================== */
+
+/* Prevent code blocks from blowing out mobile layout */
+.markdown-body pre {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent markdown tables from overflowing on mobile */
+.markdown-body table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+}
+
+/* Wider tap targets on mobile for all buttons */
+@media (max-width: 640px) {
+  button {
+    min-height: 36px;
+  }
+
+  /* Tighten markdown font on very small screens */
+  .markdown-body {
+    font-size: 0.875rem;
+  }
+
+  /* Reduce padding inside AI message cards on mobile */
+  .markdown-body pre code {
+    font-size: 0.75rem;
+  }
+}
+
+/* Ensure body/html never overflow horizontally */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}

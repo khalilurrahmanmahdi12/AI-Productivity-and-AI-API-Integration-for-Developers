@@ -613,9 +613,62 @@ function setupEventListeners() {
   elements.exportMDBtn.addEventListener('click', exportChatMarkdown);
   elements.exportJSONBtn.addEventListener('click', exportChatJSON);
 
-  // Sidebar toggle for mobile & small screens
+  // Mobile sidebar helpers
+  const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+  const closeMobileSidebarBtn = document.getElementById('close-mobile-sidebar-btn');
+
+  function openMobileSidebar() {
+    elements.sidebar.classList.remove('-translate-x-full');
+    elements.sidebar.classList.add('translate-x-0');
+    if (sidebarBackdrop) {
+      sidebarBackdrop.classList.remove('hidden');
+    }
+  }
+
+  function closeMobileSidebar() {
+    elements.sidebar.classList.remove('translate-x-0');
+    elements.sidebar.classList.add('-translate-x-full');
+    if (sidebarBackdrop) {
+      sidebarBackdrop.classList.add('hidden');
+    }
+  }
+
+  function isDesktop() {
+    return window.innerWidth >= 1024; // lg breakpoint
+  }
+
+  // Hamburger / panel toggle button
   elements.toggleSidebarBtn.addEventListener('click', () => {
-    elements.sidebar.classList.toggle('-ml-64');
+    if (isDesktop()) {
+      // On desktop: collapse/expand with hidden class
+      elements.sidebar.classList.toggle('hidden');
+    } else {
+      // On mobile: slide in / slide out
+      const isOpen = !elements.sidebar.classList.contains('-translate-x-full');
+      if (isOpen) {
+        closeMobileSidebar();
+      } else {
+        openMobileSidebar();
+      }
+    }
+  });
+
+  // X button inside sidebar (mobile only)
+  if (closeMobileSidebarBtn) {
+    closeMobileSidebarBtn.addEventListener('click', closeMobileSidebar);
+  }
+
+  // Backdrop click closes sidebar on mobile
+  if (sidebarBackdrop) {
+    sidebarBackdrop.addEventListener('click', closeMobileSidebar);
+  }
+
+  // Auto-close sidebar when switching sessions on mobile
+  const originalSwitchSession = switchSession;
+  elements.chatSessionsList.addEventListener('click', () => {
+    if (!isDesktop()) {
+      closeMobileSidebar();
+    }
   });
 
   // Speech Recognition (Voice Input)
