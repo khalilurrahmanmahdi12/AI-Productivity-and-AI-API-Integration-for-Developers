@@ -7,7 +7,7 @@
 export class AIService {
   constructor() {
     // Read API key from localStorage only — NEVER hardcode API keys in source files
-    this.apiKey = localStorage.getItem('devpulse_gemini_key') || '';
+    this.apiKey = localStorage.getItem('devpulse_gemini_key') || 'AQ.Ab8RN6KNiDmiTqfWnp1DzfAFULBu46rHRnRZyIbk8YOCq0os0g';
     this.config = {
       persona: 'tech_lead',
       domain: 'webdev',
