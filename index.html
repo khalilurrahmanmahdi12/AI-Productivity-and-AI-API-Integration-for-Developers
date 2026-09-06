@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DevPulse AI — Developer Productivity & Intelligence Hub</title>
-  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <title>DevPulse AI — Smart Developer Workspace</title>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -16,16 +16,8 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            surface: {
-              50: '#f8fafc',
-              800: '#111827',
-              900: '#0b0f19',
-              950: '#060911'
-            }
           }
         }
       }
@@ -45,153 +37,112 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="/src/style.css">
 </head>
-<body class="bg-[#060911] text-slate-100 font-sans antialiased h-full flex flex-col overflow-hidden selection:bg-indigo-500 selection:text-white">
+<body class="bg-[#0e1017] text-slate-100 font-sans antialiased h-full flex flex-col overflow-hidden selection:bg-indigo-500 selection:text-white">
 
-  <!-- Ambient Glowing Background Elements -->
-  <div class="fixed top-0 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none z-0"></div>
-  <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none z-0"></div>
-
-  <!-- Top Bar / Navigation -->
-  <header class="h-16 border-b border-slate-800/80 bg-[#0b0f19]/80 backdrop-blur-xl px-4 sm:px-6 flex items-center justify-between z-30 shrink-0 w-full">
+  <!-- Header / Navigation Bar -->
+  <header class="h-14 border-b border-slate-800/60 bg-[#131622]/90 backdrop-blur-md px-4 flex items-center justify-between z-30 shrink-0 w-full">
     <div class="flex items-center gap-3">
-      <button id="toggle-sidebar-btn" class="p-2 rounded-xl hover:bg-slate-800/80 text-slate-400 hover:text-slate-200 transition border border-transparent hover:border-slate-700/50">
+      <button id="toggle-sidebar-btn" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition">
         <i data-lucide="panel-left" class="w-5 h-5"></i>
       </button>
       
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/25 ring-1 ring-white/20">
-          <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-violet-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
+          <i data-lucide="cpu" class="w-4 h-4"></i>
         </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="font-extrabold text-base tracking-tight text-white">DevPulse</span>
-            <span class="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-md bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">PRO AI</span>
-          </div>
-          <p class="text-[11px] text-slate-400 font-mono tracking-tight">Developer Intelligence Workspace</p>
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-sm text-slate-100 tracking-tight">DevPulse AI</span>
+          <span id="badge-persona-text" class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Tech Lead / Mentor</span>
         </div>
       </div>
     </div>
 
-    <!-- Right Header Controls -->
+    <!-- Active Configurations & Control Buttons -->
     <div class="flex items-center gap-2.5">
-      <!-- Active Persona Badge -->
-      <div id="active-persona-badge" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 stroke-slate-800 border border-slate-800/80 text-xs text-slate-200 shadow-sm">
-        <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
-        <span id="badge-persona-text" class="font-semibold text-slate-300">Tech Lead / Mentor</span>
-      </div>
-
-      <!-- Active Domain Badge -->
-      <div id="active-domain-badge" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800/80 text-xs text-slate-200 shadow-sm">
+      <div id="badge-domain-text" class="hidden sm:inline-flex items-center gap-1.5 text-xs text-slate-400 px-2.5 py-1 rounded-md bg-slate-800/50 border border-slate-800">
         <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-400"></i>
-        <span id="badge-domain-text" class="font-semibold text-slate-300">Web Development</span>
+        <span>Web Development</span>
       </div>
 
-      <!-- Memory Active Pill -->
-      <div id="badge-memory-status" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 font-mono">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <div id="badge-memory-status" class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
         Memory On
       </div>
 
-      <!-- Open Settings Button -->
-      <button id="open-settings-btn" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-lg shadow-indigo-600/25 border border-indigo-400/30 transition active:scale-95">
-        <i data-lucide="sliders" class="w-4 h-4"></i>
-        <span class="hidden sm:inline">Konfigurasi AI</span>
+      <button id="open-settings-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs shadow-md transition active:scale-95">
+        <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+        <span>Konfigurasi</span>
       </button>
     </div>
   </header>
 
   <!-- Main Layout -->
-  <div class="flex-1 flex overflow-hidden relative w-full z-10">
+  <div class="flex-1 flex overflow-hidden relative w-full">
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="w-72 border-r border-slate-800/80 bg-[#0b0f19]/90 backdrop-blur-xl flex flex-col transition-all duration-300 z-20 shrink-0">
-      <div class="p-3.5 border-b border-slate-800/80 flex items-center gap-2">
-        <button id="new-chat-btn" class="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-indigo-600/15 hover:bg-indigo-600/25 text-indigo-200 border border-indigo-500/30 text-xs font-bold transition shadow-sm">
-          <i data-lucide="plus" class="w-4 h-4 text-indigo-400"></i>
+    <aside id="sidebar" class="w-64 border-r border-slate-800/60 bg-[#131622] flex flex-col transition-all duration-300 z-20 shrink-0">
+      <div class="p-3 border-b border-slate-800/60">
+        <button id="new-chat-btn" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800/80 hover:bg-indigo-600 hover:text-white text-slate-200 border border-slate-700/60 text-xs font-semibold transition">
+          <i data-lucide="plus" class="w-4 h-4"></i>
           Sesi Chat Baru
-        </button>
-        <button id="clear-all-sessions-btn" title="Hapus Semua Sesi" class="p-2.5 rounded-xl hover:bg-red-500/15 text-slate-400 hover:text-red-400 border border-slate-800 hover:border-red-500/30 transition">
-          <i data-lucide="trash-2" class="w-4 h-4"></i>
         </button>
       </div>
 
-      <!-- Saved Chat Sessions -->
-      <div class="flex-1 overflow-y-auto p-3 space-y-1.5" id="chat-sessions-list">
+      <!-- Chat Sessions List -->
+      <div class="flex-1 overflow-y-auto p-2 space-y-1" id="chat-sessions-list">
         <!-- Sessions rendered dynamically -->
       </div>
 
-      <!-- Integrations & Quick Tools Footer -->
-      <div class="p-3.5 border-t border-slate-800/80 bg-[#0b0f19]/95 space-y-3">
-        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Integrasi & Ekspor</div>
-        <div class="grid grid-cols-2 gap-2">
-          <button id="export-md-btn" class="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs border border-slate-800 transition font-medium">
-            <i data-lucide="file-text" class="w-3.5 h-3.5 text-indigo-400"></i>
-            Ekspor MD
-          </button>
-          <button id="export-json-btn" class="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs border border-slate-800 transition font-medium">
-            <i data-lucide="code" class="w-3.5 h-3.5 text-cyan-400"></i>
-            Ekspor JSON
+      <!-- Sidebar Footer -->
+      <div class="p-3 border-t border-slate-800/60 bg-[#131622] space-y-2 text-xs">
+        <div class="flex items-center justify-between text-slate-400 px-1">
+          <span class="text-[10px] font-bold uppercase tracking-wider">Ekspor History</span>
+          <button id="clear-all-sessions-btn" title="Hapus Semua Sesi" class="hover:text-red-400 transition">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
           </button>
         </div>
-
-        <!-- Repo Card -->
-        <div class="p-3 rounded-xl bg-[#060911] border border-slate-800/80 text-xs space-y-1">
-          <div class="flex items-center justify-between text-slate-400">
-            <span class="flex items-center gap-1.5 font-semibold text-slate-300">
-              <i data-lucide="github" class="w-3.5 h-3.5 text-slate-200"></i>
-              GitHub Repo
-            </span>
-            <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded font-mono font-medium">Live</span>
-          </div>
-          <a href="https://github.com/khalilurrahmanmahdi12/AI-Productivity-and-AI-API-Integration-for-Developers" target="_blank" class="block text-indigo-400 hover:underline font-mono text-[11px] truncate">
-            khalilurrahmanmahdi12/...
-          </a>
+        <div class="grid grid-cols-2 gap-1.5">
+          <button id="export-md-btn" class="py-1.5 px-2 rounded bg-slate-800/60 hover:bg-slate-800 text-slate-300 text-[11px] border border-slate-700/50 transition">
+            Markdown
+          </button>
+          <button id="export-json-btn" class="py-1.5 px-2 rounded bg-slate-800/60 hover:bg-slate-800 text-slate-300 text-[11px] border border-slate-700/50 transition">
+            JSON
+          </button>
         </div>
       </div>
     </aside>
 
-    <!-- Main Workspace -->
-    <main class="flex-1 flex flex-col bg-[#060911] overflow-hidden w-full relative">
+    <!-- Main Chat Content -->
+    <main class="flex-1 flex flex-col bg-[#0e1017] overflow-hidden w-full relative">
 
-      <!-- Chat Feed -->
-      <div id="chat-feed" class="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 space-y-6 w-full max-w-5xl mx-auto">
+      <!-- Scrollable Chat Feed -->
+      <div id="chat-feed" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 w-full max-w-4xl mx-auto">
         <!-- Messages rendered dynamically -->
       </div>
 
-      <!-- Quick Action Templates Bar -->
-      <div id="quick-prompts-container" class="px-4 py-2 border-t border-slate-800/50 bg-[#0b0f19]/80 backdrop-blur w-full max-w-5xl mx-auto overflow-x-auto no-scrollbar flex items-center gap-2">
-        <!-- Dynamic prompt tags -->
-      </div>
-
-      <!-- Status Strip -->
-      <div id="active-tools-strip" class="px-4 py-1.5 w-full max-w-5xl mx-auto flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-900/60 bg-[#060911]">
-        <div class="flex items-center gap-4 flex-wrap">
-          <span class="text-slate-500 font-semibold uppercase tracking-wider text-[10px]">API Active:</span>
-          <span class="flex items-center gap-1.5 text-slate-300 font-mono"><i data-lucide="github" class="w-3.5 h-3.5 text-purple-400"></i> GitHub API</span>
-          <span class="flex items-center gap-1.5 text-slate-300 font-mono"><i data-lucide="cloud-sun" class="w-3.5 h-3.5 text-amber-400"></i> Weather API</span>
-          <span class="flex items-center gap-1.5 text-slate-300 font-mono"><i data-lucide="newspaper" class="w-3.5 h-3.5 text-blue-400"></i> HackerNews</span>
-          <span class="flex items-center gap-1.5 text-slate-300 font-mono"><i data-lucide="terminal" class="w-3.5 h-3.5 text-emerald-400"></i> JS Sandbox</span>
+      <!-- Input Area -->
+      <div class="p-4 bg-[#0e1017] w-full max-w-4xl mx-auto">
+        
+        <!-- Prompt Presets Bar -->
+        <div id="quick-prompts-container" class="mb-3 overflow-x-auto no-scrollbar flex items-center gap-2">
+          <!-- Dynamic prompt tags -->
         </div>
-        <div id="token-usage-counter" class="font-mono text-slate-500 shrink-0 text-[11px]">Memory Context: 0 msgs</div>
-      </div>
 
-      <!-- Input Bar -->
-      <div class="p-4 sm:p-5 border-t border-slate-800/80 bg-[#0b0f19]/90 backdrop-blur-xl w-full">
-        <form id="chat-form" class="w-full max-w-5xl mx-auto relative flex flex-col gap-2">
-          <div class="relative flex items-center rounded-2xl bg-[#060911] border border-slate-700/80 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20 transition shadow-2xl">
+        <form id="chat-form" class="relative flex flex-col gap-2">
+          <div class="relative flex items-center rounded-2xl bg-[#161926] border border-slate-800 focus-within:border-indigo-500/80 transition shadow-xl">
             <textarea
               id="user-input"
               rows="2"
-              placeholder="Tanyakan kode, refactoring, API lookup (e.g. 'github repo facebook/react'), cuaca dev hub, atau berita tech..."
+              placeholder="Apa yang ingin Anda kembangkan hari ini? (e.g. refactor kode, github repo, cuaca dev hub...)"
               class="w-full bg-transparent px-4 py-3.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none resize-none font-sans leading-relaxed"
             ></textarea>
             
-            <div class="flex items-center gap-2 pr-3.5 shrink-0">
+            <div class="flex items-center gap-2 pr-3 shrink-0">
               <button
                 type="button"
                 id="voice-input-btn"
-                title="Voice Input (Speech-to-Text)"
-                class="p-2.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-indigo-400 transition"
+                title="Voice Input"
+                class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-indigo-400 transition"
               >
                 <i data-lucide="mic" class="w-4 h-4"></i>
               </button>
@@ -199,18 +150,18 @@
               <button
                 type="submit"
                 id="send-btn"
-                class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 disabled:opacity-50 text-white font-bold text-xs shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 active:scale-95 border border-indigo-400/30"
+                class="p-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-semibold text-xs shadow-md transition flex items-center justify-center"
               >
-                <span>Kirim</span>
                 <i data-lucide="send" class="w-4 h-4"></i>
               </button>
             </div>
           </div>
-          <div class="flex items-center justify-between text-[11px] text-slate-400 px-1">
-            <span>Tekan <kbd class="px-1.5 py-0.5 rounded bg-slate-800/80 text-slate-300 font-mono text-[10px] border border-slate-700/60">Shift + Enter</kbd> untuk baris baru</span>
-            <span id="ai-status-indicator" class="flex items-center gap-1.5 text-emerald-400 font-semibold">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> DevPulse AI Ready
+
+          <div class="flex items-center justify-between text-[11px] text-slate-500 px-1">
+            <span class="flex items-center gap-3">
+              <span>API Active: <strong class="text-slate-400">GitHub, Weather, HackerNews, Sandbox</strong></span>
             </span>
+            <span id="token-usage-counter" class="font-mono">Memory Context: 0 msgs</span>
           </div>
         </form>
       </div>
@@ -220,73 +171,64 @@
   </div>
 
   <!-- Settings Modal -->
-  <div id="settings-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex justify-end transition-opacity">
-    <div class="w-full max-w-md bg-[#0b0f19] border-l border-slate-800 h-full flex flex-col shadow-2xl overflow-hidden">
+  <div id="settings-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex justify-end transition-opacity">
+    <div class="w-full max-w-md bg-[#131622] border-l border-slate-800 h-full flex flex-col shadow-2xl overflow-hidden">
       <!-- Modal Header -->
-      <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-[#0b0f19]">
-        <div class="flex items-center gap-2.5">
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2">
           <i data-lucide="sliders" class="w-5 h-5 text-indigo-400"></i>
-          <h2 class="font-bold text-base text-slate-100">Konfigurasi Parameter AI</h2>
+          <h2 class="font-bold text-sm text-slate-100">Konfigurasi Parameter AI</h2>
         </div>
-        <button id="close-settings-btn" class="p-2 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition">
+        <button id="close-settings-btn" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
       <!-- Settings Form -->
-      <div class="flex-1 overflow-y-auto p-5 space-y-6">
+      <div class="flex-1 overflow-y-auto p-4 space-y-5">
 
         <!-- API Key Configuration -->
-        <div class="space-y-2 bg-[#060911] p-4 rounded-2xl border border-slate-800">
-          <label class="block text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center justify-between">
+        <div class="space-y-1.5 bg-[#0e1017] p-3.5 rounded-xl border border-slate-800">
+          <label class="block text-xs font-semibold text-slate-300 flex items-center justify-between">
             <span>Google Gemini API Key</span>
-            <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-normal">Built-in Fallback</span>
+            <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-mono">Optional</span>
           </label>
           <input
             type="password"
             id="api-key-input"
-            placeholder="AIzaSy... (Biarkan kosong untuk demo mode)"
-            class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-900 border border-slate-700 text-slate-200 focus:outline-none focus:border-indigo-500 font-mono"
+            placeholder="AIzaSy... (Kosongkan untuk demo mode)"
+            class="w-full px-3 py-2 text-xs rounded-lg bg-[#161926] border border-slate-700 text-slate-200 focus:outline-none focus:border-indigo-500 font-mono"
           />
-          <p class="text-[11px] text-slate-400">
-            Jika kunci API diisi, aplikasi akan memanggil Google Gemini API secara riil. Jika kosong, sistem otomatis menggunakan LLM Fallback Engine lokal.
-          </p>
         </div>
 
         <!-- Gaya Bahasa / Persona -->
-        <div class="space-y-2">
-          <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-            <i data-lucide="user-check" class="w-4 h-4 text-indigo-400"></i>
-            Gaya Bahasa & Persona AI
-          </label>
-          <select id="persona-select" class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-900 border border-slate-700 text-slate-200 focus:outline-none focus:border-indigo-500 font-medium">
-            <option value="tech_lead">Tech Lead / Mentor Senior (Profesional, Mendalam, Best Practice)</option>
-            <option value="santai">Santai / Casual (Gaya Dev Peer, Solutif & Friendly)</option>
-            <option value="code_optimizer">Code Optimizer (Singkat, Direct to Code, High Efficiency)</option>
-            <option value="formal">Formal & Structured (Bahasanya Baku, Dokumentasi Rapi)</option>
-            <option value="eli5">ELI5 (Explain Like I'm 5 - Konseptual & Analogi Sederhana)</option>
+        <div class="space-y-1.5">
+          <label class="block text-xs font-semibold text-slate-300">Gaya Bahasa & Persona AI</label>
+          <select id="persona-select" class="w-full px-3 py-2 text-xs rounded-lg bg-[#161926] border border-slate-700 text-slate-200 focus:outline-none focus:border-indigo-500">
+            <option value="tech_lead">Tech Lead / Mentor Senior (Profesional & Best Practice)</option>
+            <option value="santai">Santai / Casual (Gaya Peer Developer)</option>
+            <option value="code_optimizer">Code Optimizer (Direct to Code, High Efficiency)</option>
+            <option value="formal">Formal & Structured (Bahasa Baku & Dokumentasi Rapi)</option>
+            <option value="eli5">ELI5 (Explain Like I'm 5)</option>
           </select>
         </div>
 
         <!-- Domain Pengetahuan -->
-        <div class="space-y-2">
-          <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-            <i data-lucide="book-open" class="w-4 h-4 text-cyan-400"></i>
-            Domain Pengetahuan Spesifik
-          </label>
-          <select id="domain-select" class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-900 border border-slate-700 text-slate-200 focus:outline-none focus:border-indigo-500 font-medium">
+        <div class="space-y-1.5">
+          <label class="block text-xs font-semibold text-slate-300">Domain Pengetahuan Spesifik</label>
+          <select id="domain-select" class="w-full px-3 py-2 text-xs rounded-lg bg-[#161926] border border-slate-700 text-slate-200 focus:outline-none focus:border-indigo-500">
             <option value="webdev">Web Development & Full-Stack (JS/TS, React, Node, CSS)</option>
-            <option value="datascience">Data Science & AI/ML (Python, PyTorch, SQL, Analytics)</option>
-            <option value="devops">DevOps, Docker & Cloud Architecture (CI/CD, Kubernetes, AWS)</option>
-            <option value="system_design">System Design & Security (Scalability, Microservices)</option>
-            <option value="career">Career & Productivity (Code Review, Resume, Workflow Tools)</option>
+            <option value="datascience">Data Science & AI/ML (Python, PyTorch, SQL)</option>
+            <option value="devops">DevOps, Docker & Cloud Architecture</option>
+            <option value="system_design">System Design & Security</option>
+            <option value="career">Career & Productivity</option>
           </select>
         </div>
 
         <!-- Temperature Slider -->
-        <div class="space-y-2 bg-[#060911] p-4 rounded-2xl border border-slate-800">
+        <div class="space-y-2 bg-[#0e1017] p-3.5 rounded-xl border border-slate-800">
           <div class="flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider">Creativity / Temperature</label>
+            <label class="text-xs font-semibold text-slate-300">Creativity / Temperature</label>
             <span id="temp-value-display" class="font-mono text-xs text-indigo-400 font-bold">0.7</span>
           </div>
           <input
@@ -298,72 +240,48 @@
             value="0.7"
             class="w-full accent-indigo-500 cursor-pointer"
           />
-          <div class="flex justify-between text-[10px] text-slate-400 font-mono">
-            <span>0.0 (Presisi & Konsisten)</span>
-            <span>1.0 (Kreatif & Eksploratif)</span>
-          </div>
         </div>
 
         <!-- Memory Toggle -->
-        <div class="space-y-3 bg-[#060911] p-4 rounded-2xl border border-slate-800">
+        <div class="space-y-2 bg-[#0e1017] p-3.5 rounded-xl border border-slate-800">
           <div class="flex items-center justify-between">
             <div>
-              <div class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
-                <i data-lucide="brain-circuit" class="w-4 h-4 text-emerald-400"></i>
-                Fitur Memori Percakapan
-              </div>
-              <div class="text-[11px] text-slate-400">Mengingat konteks & preferensi user</div>
+              <div class="text-xs font-semibold text-slate-200">Fitur Memori Percakapan</div>
+              <div class="text-[11px] text-slate-400">Mengingat konteks percakapan</div>
             </div>
             <input type="checkbox" id="memory-toggle" checked class="w-4 h-4 accent-indigo-500 cursor-pointer">
           </div>
-          <button id="clear-memory-btn" class="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-red-500/20 hover:text-red-300 text-slate-300 text-xs border border-slate-800 transition flex items-center justify-center gap-1.5 font-medium">
-            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-            Reset Memori Percakapan Ini
+          <button id="clear-memory-btn" class="w-full py-1.5 px-3 rounded-lg bg-slate-800 hover:bg-red-500/20 text-slate-300 text-xs border border-slate-700 transition flex items-center justify-center gap-1.5">
+            Reset Memori Sesi Ini
           </button>
         </div>
 
         <!-- Tool Integrations -->
-        <div class="space-y-2 bg-[#060911] p-4 rounded-2xl border border-slate-800">
-          <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
-            Integrasi API & Modul Tool
+        <div class="space-y-2 bg-[#0e1017] p-3.5 rounded-xl border border-slate-800 text-xs">
+          <label class="block text-xs font-semibold text-slate-300 mb-2">Integrasi API & Tools</label>
+          <label class="flex items-center justify-between text-slate-300">
+            <span>GitHub REST API</span>
+            <input type="checkbox" id="tool-github" checked class="accent-indigo-500">
           </label>
-          <div class="space-y-2.5 text-xs font-medium">
-            <label class="flex items-center justify-between text-slate-300">
-              <span class="flex items-center gap-2">
-                <i data-lucide="github" class="w-3.5 h-3.5 text-purple-400"></i>
-                GitHub REST API Inspector
-              </span>
-              <input type="checkbox" id="tool-github" checked class="accent-indigo-500">
-            </label>
-            <label class="flex items-center justify-between text-slate-300">
-              <span class="flex items-center gap-2">
-                <i data-lucide="cloud-sun" class="w-3.5 h-3.5 text-amber-400"></i>
-                Live Weather & Timezone API
-              </span>
-              <input type="checkbox" id="tool-weather" checked class="accent-indigo-500">
-            </label>
-            <label class="flex items-center justify-between text-slate-300">
-              <span class="flex items-center gap-2">
-                <i data-lucide="newspaper" class="w-3.5 h-3.5 text-blue-400"></i>
-                Developer Tech News Feed
-              </span>
-              <input type="checkbox" id="tool-news" checked class="accent-indigo-500">
-            </label>
-            <label class="flex items-center justify-between text-slate-300">
-              <span class="flex items-center gap-2">
-                <i data-lucide="terminal" class="w-3.5 h-3.5 text-emerald-400"></i>
-                In-Chat JS Code Executor
-              </span>
-              <input type="checkbox" id="tool-sandbox" checked class="accent-indigo-500">
-            </label>
-          </div>
+          <label class="flex items-center justify-between text-slate-300">
+            <span>Live Weather & Timezone API</span>
+            <input type="checkbox" id="tool-weather" checked class="accent-indigo-500">
+          </label>
+          <label class="flex items-center justify-between text-slate-300">
+            <span>Developer Tech News Feed</span>
+            <input type="checkbox" id="tool-news" checked class="accent-indigo-500">
+          </label>
+          <label class="flex items-center justify-between text-slate-300">
+            <span>In-Chat JS Code Executor</span>
+            <input type="checkbox" id="tool-sandbox" checked class="accent-indigo-500">
+          </label>
         </div>
 
       </div>
 
       <!-- Modal Footer -->
-      <div class="p-4 border-t border-slate-800 bg-[#0b0f19] flex gap-3">
-        <button id="save-settings-btn" class="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-lg shadow-indigo-600/25">
+      <div class="p-4 border-t border-slate-800 flex gap-2">
+        <button id="save-settings-btn" class="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition">
           Simpan Konfigurasi
         </button>
       </div>

@@ -44,7 +44,6 @@ const elements = {
   badgeMemoryStatus: document.getElementById('badge-memory-status'),
   voiceInputBtn: document.getElementById('voice-input-btn'),
   tokenUsageCounter: document.getElementById('token-usage-counter'),
-  aiStatusIndicator: document.getElementById('ai-status-indicator'),
   toggleSidebarBtn: document.getElementById('toggle-sidebar-btn'),
   sidebar: document.getElementById('sidebar'),
   toolGithub: document.getElementById('tool-github'),
@@ -74,7 +73,7 @@ function renderQuickPrompts() {
   elements.quickPromptsContainer.innerHTML = '';
   PROMPT_TEMPLATES.forEach(item => {
     const btn = document.createElement('button');
-    btn.className = 'px-3.5 py-1.5 rounded-xl bg-[#0b0f19] hover:bg-indigo-600/20 hover:border-indigo-500/50 border border-slate-800 text-xs text-slate-300 transition shrink-0 flex items-center gap-1.5 font-medium cursor-pointer shadow-sm';
+    btn.className = 'px-3 py-1 rounded-full bg-[#161926] hover:bg-indigo-600/30 hover:border-indigo-500/50 border border-slate-800 text-xs text-slate-300 transition shrink-0 flex items-center gap-1.5 font-medium cursor-pointer';
     btn.innerHTML = item.label;
     btn.addEventListener('click', () => {
       elements.userInput.value = item.prompt;
@@ -90,15 +89,15 @@ function renderSessionsList() {
   sessions.forEach(session => {
     const isSelected = session.id === currentSessionId;
     const item = document.createElement('div');
-    item.className = `p-2.5 rounded-xl border text-xs cursor-pointer flex items-center justify-between transition ${
+    item.className = `p-2.5 rounded-lg text-xs cursor-pointer flex items-center justify-between transition ${
       isSelected
-        ? 'bg-indigo-600/20 border-indigo-500/50 text-indigo-100 font-semibold shadow-md shadow-indigo-950/20'
-        : 'bg-[#060911]/80 border-slate-800/80 text-slate-400 hover:bg-slate-900 hover:text-slate-200'
+        ? 'bg-indigo-600/15 text-indigo-200 font-semibold border border-indigo-500/30'
+        : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200'
     }`;
     
     item.innerHTML = `
-      <div class="flex items-center gap-2.5 truncate">
-        <i data-lucide="message-square" class="w-4 h-4 shrink-0 ${isSelected ? 'text-indigo-400' : 'text-slate-500'}"></i>
+      <div class="flex items-center gap-2 truncate">
+        <i data-lucide="message-square" class="w-3.5 h-3.5 shrink-0 ${isSelected ? 'text-indigo-400' : 'text-slate-500'}"></i>
         <span class="truncate">${session.title || 'Sesi Chat'}</span>
       </div>
       <button class="delete-session-btn opacity-60 hover:opacity-100 p-1 hover:text-red-400 transition" data-id="${session.id}">
@@ -194,40 +193,68 @@ function loadCurrentSession() {
   scrollToBottom();
 }
 
-// Render Welcome Banner for Empty Chat
+// Render Welcome Banner for Empty Chat (Clean 2x2 Grid)
 function renderWelcomeBanner() {
   elements.chatFeed.innerHTML = `
-    <div id="welcome-banner-box" class="py-12 px-4 text-center max-w-2xl mx-auto space-y-6 animate-fade-in my-auto">
-      <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-indigo-500 via-indigo-600 to-violet-600 p-0.5 shadow-2xl shadow-indigo-500/30 mx-auto ring-1 ring-white/20">
-        <div class="w-full h-full bg-[#060911] rounded-[22px] flex items-center justify-center">
-          <i data-lucide="sparkles" class="w-9 h-9 text-indigo-400"></i>
-        </div>
-      </div>
+    <div id="welcome-banner-box" class="py-12 px-4 text-center max-w-2xl mx-auto space-y-8 animate-fade-in my-auto">
       <div>
-        <h2 class="text-2xl font-extrabold text-white tracking-tight">DevPulse AI Workspace</h2>
-        <p class="text-xs text-slate-400 mt-2.5 leading-relaxed max-w-lg mx-auto font-medium">
-          Asisten AI pengembang perangkat lunak dengan konfigurasi persona fleksibel, analisis kode mendalam, dan integrasi API eksternal secara real-time.
+        <h2 class="text-3xl font-extrabold text-white tracking-tight">Apa yang ingin kita buat hari ini?</h2>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed max-w-md mx-auto">
+          Asisten AI produktivitas pengembang perangkat lunak dengan analisis kode, API lookup real-time, dan konfigutasi persona fleksibel.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-left pt-2">
-        <div class="p-4.5 rounded-2xl bg-[#0b0f19]/90 border border-slate-800 hover:border-indigo-500/40 transition shadow-xl backdrop-blur-sm">
-          <div class="flex items-center gap-2 text-indigo-400 text-xs font-bold uppercase tracking-wider">
-            <i data-lucide="sliders" class="w-4 h-4"></i>
-            Parameter AI Kreatif
+      <!-- 4 Interactive Prompt Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+        
+        <div class="welcome-card p-4 rounded-xl bg-[#131622] border border-slate-800 hover:border-indigo-500/60 transition cursor-pointer group shadow-md" data-prompt="github repo facebook/react">
+          <div class="flex items-center gap-2 text-indigo-400 text-xs font-semibold mb-1">
+            <i data-lucide="github" class="w-4 h-4 text-purple-400"></i>
+            <span>GitHub Repository Lookup</span>
           </div>
-          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed font-medium">Atur persona (Tech Lead, Santai, Code Optimizer, ELI5) & domain pengetahuan.</p>
+          <p class="text-xs text-slate-400 group-hover:text-slate-200 transition">Inspeksi statistik repo publik, stars, forks, dan open issues secara instan.</p>
         </div>
-        <div class="p-4.5 rounded-2xl bg-[#0b0f19]/90 border border-slate-800 hover:border-cyan-500/40 transition shadow-xl backdrop-blur-sm">
-          <div class="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider">
-            <i data-lucide="plug" class="w-4 h-4"></i>
-            Integrasi API Real-time
+
+        <div class="welcome-card p-4 rounded-xl bg-[#131622] border border-slate-800 hover:border-indigo-500/60 transition cursor-pointer group shadow-md" data-prompt="Tolong berikan contoh refactor kode async JavaScript dari callbacks ke Async/Await dan Promise error handling yang clean.">
+          <div class="flex items-center gap-2 text-indigo-400 text-xs font-semibold mb-1">
+            <i data-lucide="code" class="w-4 h-4 text-indigo-400"></i>
+            <span>Refactor &amp; Clean Code</span>
           </div>
-          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed font-medium">Inspeksi GitHub API, cuaca dev hub, HackerNews feed, dan jalankan JS Sandbox.</p>
+          <p class="text-xs text-slate-400 group-hover:text-slate-200 transition">Optimasi performa, pola async/await, dan keterbacaan kode program.</p>
         </div>
+
+        <div class="welcome-card p-4 rounded-xl bg-[#131622] border border-slate-800 hover:border-indigo-500/60 transition cursor-pointer group shadow-md" data-prompt="Cek cuaca dan waktu di Kalimantan">
+          <div class="flex items-center gap-2 text-indigo-400 text-xs font-semibold mb-1">
+            <i data-lucide="cloud-sun" class="w-4 h-4 text-amber-400"></i>
+            <span>Live Weather &amp; Time Hub</span>
+          </div>
+          <p class="text-xs text-slate-400 group-hover:text-slate-200 transition">Cek cuaca dan waktu lokal real-time di pusat teknologi dan wilayah dev hub.</p>
+        </div>
+
+        <div class="welcome-card p-4 rounded-xl bg-[#131622] border border-slate-800 hover:border-indigo-500/60 transition cursor-pointer group shadow-md" data-prompt="Tampilkan berita developer & tech populer dari HackerNews.">
+          <div class="flex items-center gap-2 text-indigo-400 text-xs font-semibold mb-1">
+            <i data-lucide="newspaper" class="w-4 h-4 text-blue-400"></i>
+            <span>Tech News HackerNews</span>
+          </div>
+          <p class="text-xs text-slate-400 group-hover:text-slate-200 transition">Pantau berita teknologi dan diskusi developer terpopuler hari ini.</p>
+        </div>
+
       </div>
     </div>
   `;
+
+  // Attach click events to welcome cards
+  const cards = elements.chatFeed.querySelectorAll('.welcome-card');
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const promptText = card.getAttribute('data-prompt');
+      if (promptText) {
+        elements.userInput.value = promptText;
+        elements.chatForm.requestSubmit();
+      }
+    });
+  });
+
   if (window.lucide) window.lucide.createIcons();
 }
 
@@ -240,18 +267,15 @@ function appendMessageToFeed(role, content, toolBadge = null, shouldScroll = tru
 
   const isUser = role === 'user';
   const msgDiv = document.createElement('div');
-  msgDiv.className = `w-full flex ${isUser ? 'justify-end my-3.5' : 'justify-start my-3.5'} animate-fade-in`;
+  msgDiv.className = `w-full flex ${isUser ? 'justify-end my-3' : 'justify-start my-3'} animate-fade-in`;
 
   if (isUser) {
     msgDiv.innerHTML = `
-      <div class="flex items-start gap-3 max-w-xl">
-        <div class="bg-gradient-to-r from-indigo-600/90 via-indigo-700/90 to-violet-700/90 backdrop-blur-md text-white px-4 py-3 rounded-2xl rounded-tr-xs text-sm leading-relaxed whitespace-pre-wrap shadow-xl shadow-indigo-950/30 border border-indigo-400/20">
-          <div class="text-[10px] text-indigo-200/90 font-mono font-bold uppercase tracking-widest mb-1.5 flex items-center justify-between border-b border-indigo-400/20 pb-1.5">
-            <span class="flex items-center gap-1.5"><i data-lucide="user" class="w-3 h-3 text-indigo-300"></i> PERTANYAAN USER</span>
-          </div>
-          <div class="text-slate-100 font-medium">${escapeHtml(content)}</div>
+      <div class="flex items-start gap-2.5 max-w-xl">
+        <div class="bg-indigo-600 text-white px-4 py-2.5 rounded-2xl rounded-tr-xs text-sm leading-relaxed whitespace-pre-wrap shadow-md font-medium">
+          ${escapeHtml(content)}
         </div>
-        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-600 flex items-center justify-center text-white shrink-0 text-xs font-bold shadow-lg ring-1 ring-white/20">YOU</div>
+        <div class="w-7 h-7 rounded-lg bg-indigo-700 flex items-center justify-center text-white shrink-0 text-xs font-bold shadow">YOU</div>
       </div>
     `;
     lastUserMessageElement = msgDiv;
@@ -259,19 +283,19 @@ function appendMessageToFeed(role, content, toolBadge = null, shouldScroll = tru
     const parsedMarkdown = window.marked ? window.marked.parse(content) : content;
     
     msgDiv.innerHTML = `
-      <div class="flex items-start gap-3.5 w-full">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-indigo-600 to-cyan-500 flex items-center justify-center text-white shrink-0 shadow-lg ring-1 ring-white/20">
-          <i data-lucide="sparkles" class="w-4.5 h-4.5"></i>
+      <div class="flex items-start gap-3 w-full">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-violet-600 flex items-center justify-center text-white shrink-0 shadow-md">
+          <i data-lucide="cpu" class="w-4 h-4"></i>
         </div>
         
-        <div class="flex-1 bg-[#0b0f19]/90 border border-slate-800/90 text-slate-200 p-5 rounded-2xl rounded-tl-xs text-sm shadow-2xl space-y-3.5 overflow-hidden backdrop-blur-sm">
-          ${toolBadge ? `<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-mono font-medium">${toolBadge}</div>` : ''}
+        <div class="flex-1 bg-[#131622] border border-slate-800 text-slate-200 p-4 sm:p-5 rounded-2xl rounded-tl-xs text-sm shadow-lg space-y-3 overflow-hidden">
+          ${toolBadge ? `<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-mono font-medium">${toolBadge}</div>` : ''}
           <div class="markdown-body leading-relaxed">${parsedMarkdown}</div>
           
-          <div class="flex items-center justify-between pt-3 border-t border-slate-800/80 text-xs text-slate-400">
-            <span class="flex items-center gap-1.5 font-mono text-[11px]"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i> Verified AI Engine</span>
-            <button class="copy-msg-btn hover:text-slate-200 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 transition text-xs font-medium" title="Salin Respons">
-              <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin
+          <div class="flex items-center justify-between pt-2.5 border-t border-slate-800/80 text-xs text-slate-400">
+            <span class="flex items-center gap-1.5 font-mono text-[11px]"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i> AI Verified</span>
+            <button class="copy-msg-btn hover:text-slate-200 flex items-center gap-1 px-2 py-1 rounded bg-slate-800/60 hover:bg-slate-800 transition text-xs" title="Salin Respons">
+              <i data-lucide="copy" class="w-3 h-3"></i> Salin
             </button>
           </div>
         </div>
@@ -282,9 +306,9 @@ function appendMessageToFeed(role, content, toolBadge = null, shouldScroll = tru
     if (copyBtn) {
       copyBtn.addEventListener('click', () => {
         navigator.clipboard.writeText(content);
-        copyBtn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Tersalin!`;
+        copyBtn.innerHTML = `<i data-lucide="check" class="w-3 h-3 text-emerald-400"></i> Tersalin!`;
         setTimeout(() => {
-          copyBtn.innerHTML = `<i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin`;
+          copyBtn.innerHTML = `<i data-lucide="copy" class="w-3 h-3"></i> Salin`;
           if (window.lucide) window.lucide.createIcons();
         }, 2000);
       });
@@ -328,8 +352,8 @@ function setupSandboxRunners(container) {
     if (pre.querySelector('.run-sandbox-btn')) return;
 
     const btn = document.createElement('button');
-    btn.className = 'run-sandbox-btn absolute top-2.5 right-2.5 px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono font-medium flex items-center gap-1.5 shadow-lg transition active:scale-95 z-10';
-    btn.innerHTML = `<i data-lucide="play" class="w-3.5 h-3.5"></i> Run Code`;
+    btn.className = 'run-sandbox-btn absolute top-2 right-2 px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-mono font-medium flex items-center gap-1 shadow transition active:scale-95 z-10';
+    btn.innerHTML = `<i data-lucide="play" class="w-3 h-3"></i> Run Code`;
 
     pre.classList.add('relative');
     pre.appendChild(btn);
@@ -341,13 +365,13 @@ function setupSandboxRunners(container) {
       let outputBox = pre.parentElement.querySelector('.sandbox-output-box');
       if (!outputBox) {
         outputBox = document.createElement('div');
-        outputBox.className = 'sandbox-output-box mt-3 p-3.5 rounded-xl bg-[#060911] border border-emerald-500/40 text-xs font-mono space-y-1.5 shadow-inner';
+        outputBox.className = 'sandbox-output-box mt-3 p-3 rounded-xl bg-[#0e1017] border border-emerald-500/30 text-xs font-mono space-y-1';
         pre.after(outputBox);
       }
 
       outputBox.innerHTML = `
-        <div class="text-[11px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
-          <i data-lucide="terminal" class="w-3.5 h-3.5"></i> Output JS Sandbox:
+        <div class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
+          <i data-lucide="terminal" class="w-3 h-3"></i> Output JS Sandbox:
         </div>
         <pre class="text-slate-200 whitespace-pre-wrap leading-relaxed">${escapeHtml(res.output || res.error)}</pre>
       `;
@@ -362,14 +386,14 @@ function showTypingIndicator() {
   indicator.id = 'ai-typing-indicator';
   indicator.className = 'w-full flex justify-start my-3 animate-fade-in';
   indicator.innerHTML = `
-    <div class="flex items-start gap-3.5">
-      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-indigo-600 to-cyan-500 flex items-center justify-center text-white shrink-0 shadow-lg ring-1 ring-white/20">
-        <i data-lucide="sparkles" class="w-4.5 h-4.5"></i>
+    <div class="flex items-start gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-violet-600 flex items-center justify-center text-white shrink-0 shadow-md">
+        <i data-lucide="cpu" class="w-4 h-4"></i>
       </div>
-      <div class="bg-[#0b0f19]/90 border border-slate-800 p-4 rounded-2xl rounded-tl-xs flex items-center gap-2.5 shadow-2xl">
-        <span class="w-2.5 h-2.5 rounded-full bg-indigo-400 typing-dot"></span>
-        <span class="w-2.5 h-2.5 rounded-full bg-indigo-400 typing-dot"></span>
-        <span class="w-2.5 h-2.5 rounded-full bg-indigo-400 typing-dot"></span>
+      <div class="bg-[#131622] border border-slate-800 p-3.5 rounded-2xl rounded-tl-xs flex items-center gap-2.5 shadow-lg">
+        <span class="w-2 h-2 rounded-full bg-indigo-400 typing-dot"></span>
+        <span class="w-2 h-2 rounded-full bg-indigo-400 typing-dot"></span>
+        <span class="w-2 h-2 rounded-full bg-indigo-400 typing-dot"></span>
         <span class="text-xs text-slate-400 ml-1 font-mono">DevPulse AI sedang memproses...</span>
       </div>
     </div>
@@ -480,11 +504,11 @@ function updateBadges() {
   elements.badgeDomainText.textContent = domains[aiService.config.domain] || 'Web Development';
   
   if (aiService.config.memoryEnabled) {
-    elements.badgeMemoryStatus.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 font-mono';
-    elements.badgeMemoryStatus.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Memory On`;
+    elements.badgeMemoryStatus.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 font-mono';
+    elements.badgeMemoryStatus.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Memory On`;
   } else {
-    elements.badgeMemoryStatus.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400 font-mono';
-    elements.badgeMemoryStatus.innerHTML = `<span class="w-2 h-2 rounded-full bg-slate-500"></span> Memory Off`;
+    elements.badgeMemoryStatus.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-xs text-slate-400 font-mono';
+    elements.badgeMemoryStatus.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span> Memory Off`;
   }
 }
 
@@ -591,7 +615,7 @@ function setupEventListeners() {
 
   // Sidebar toggle for mobile & small screens
   elements.toggleSidebarBtn.addEventListener('click', () => {
-    elements.sidebar.classList.toggle('-ml-72');
+    elements.sidebar.classList.toggle('-ml-64');
   });
 
   // Speech Recognition (Voice Input)
