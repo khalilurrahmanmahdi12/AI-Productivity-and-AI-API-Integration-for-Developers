@@ -91,27 +91,34 @@ export class AIService {
   }
 
   async callGeminiAPI(userMessage, toolData) {
-    // Menggunakan endpoint model gemini-3.1-flash-lite (v1beta)
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${this.apiKey.trim()}`;
     
-    let promptContent = `${this.getSystemPrompt()}\n\n`;
+    let userPrompt = "";
     
     if (toolData) {
-      promptContent += `[DATA INTEGRASI API EKSTERNAL TERSEDIA]:\n${JSON.stringify(toolData, null, 2)}\n\n`;
+      userPrompt += `[DATA INTEGRASI API EKSTERNAL TERSEDIA]:\n${JSON.stringify(toolData, null, 2)}\n\n`;
     }
 
     if (this.config.memoryEnabled && this.memoryHistory.length > 1) {
-      promptContent += `[RIWAYAT MEMORI PERCAKAPAN SEBELUMNYA]:\n`;
+      userPrompt += `[RIWAYAT MEMORI PERCAKAPAN SEBELUMNYA]:\n`;
       this.memoryHistory.slice(-6, -1).forEach(m => {
-        promptContent += `${m.role.toUpperCase()}: ${m.content}\n`;
+        userPrompt += `${m.role.toUpperCase()}: ${m.content}\n`;
       });
-      promptContent += `\n`;
+      userPrompt += `\n`;
     }
 
-    promptContent += `USER: ${userMessage}\nASSISTANT:`;
+    userPrompt += userMessage;
 
     const body = {
-      contents: [{ parts: [{ text: promptContent }] }],
+      systemInstruction: {
+        parts: [{ text: this.getSystemPrompt() }]
+      },
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: userPrompt }]
+        }
+      ],
       generationConfig: {
         temperature: parseFloat(this.config.temperature) || 0.7,
         maxOutputTokens: 1024
