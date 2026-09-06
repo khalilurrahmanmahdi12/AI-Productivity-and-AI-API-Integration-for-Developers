@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id" class="dark h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevPulse AI - Intelligent Developer Productivity & AI Assistant</title>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#312e81',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Marked parser for Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Prism.js for Syntax Highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased h-full flex flex-col overflow-hidden">
+
+  <!-- Header / Navigation Bar (Full Width & Sticky) -->
+  <header class="h-16 border-b border-slate-800 bg-slate-900/90 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between z-30 shrink-0 w-full">
+    <div class="flex items-center gap-3">
+      <button id="toggle-sidebar-btn" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition">
+        <i data-lucide="panel-left" class="w-5 h-5"></i>
+      </button>
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+          <i data-lucide="cpu" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-base bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent flex items-center gap-2 leading-tight">
+            DevPulse AI
+            <span class="text-[10px] uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">v1.0</span>
+          </h1>
+          <p class="text-xs text-slate-400 font-mono">Developer Productivity Chatbot</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Configurations Indicators & Quick Controls -->
+    <div class="flex items-center gap-3">
+      <!-- Active Persona Badge -->
+      <div id="active-persona-badge" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80 text-xs text-slate-200">
+        <i data-lucide="bot" class="w-3.5 h-3.5 text-indigo-400"></i>
+        <span id="badge-persona-text">Tech Lead / Mentor</span>
+      </div>
+
+      <!-- Active Domain Badge -->
+      <div id="active-domain-badge" class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80 text-xs text-slate-200">
+        <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-400"></i>
+        <span id="badge-domain-text">Web Development</span>
+      </div>
+
+      <!-- Memory Active Pill -->
+      <div id="badge-memory-status" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 font-mono">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Memory On
+      </div>
+
+      <!-- Open Parameters Settings Drawer -->
+      <button id="open-settings-btn" class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs shadow-md shadow-indigo-600/30 transition active:scale-95">
+        <i data-lucide="sliders" class="w-4 h-4"></i>
+        <span class="hidden sm:inline font-semibold">Konfigurasi AI</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Workspace Layout (Full Height & Full Width Flex) -->
+  <div class="flex-1 flex overflow-hidden relative w-full">
+
+    <!-- Sidebar (Collapsible) -->
+    <aside id="sidebar" class="w-72 border-r border-slate-800 bg-slate-900/80 backdrop-blur-md flex flex-col transition-all duration-300 z-20 shrink-0">
+      <div class="p-3 border-b border-slate-800 flex items-center gap-2">
+        <button id="new-chat-btn" class="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-200 border border-indigo-500/30 text-xs font-semibold transition">
+          <i data-lucide="plus" class="w-4 h-4 text-indigo-400"></i>
+          Sesi Chat Baru
+        </button>
+        <button id="clear-all-sessions-btn" title="Hapus semua sesi" class="p-2.5 rounded-lg hover:bg-red-500/10 text-slate-400 hover:text-red-400 border border-slate-800 hover:border-red-500/30 transition">
+          <i data-lucide="trash-2" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Saved Chat Sessions -->
+      <div class="flex-1 overflow-y-auto p-3 space-y-1.5" id="chat-sessions-list">
+        <!-- Sessions rendered dynamically -->
+      </div>
+
+      <!-- Developer Tools & Quick Export Section -->
+      <div class="p-3 border-t border-slate-800 bg-slate-900/90 space-y-2.5">
+        <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider px-1">Integrasi & Ekspor</div>
+        <div class="grid grid-cols-2 gap-2">
+          <button id="export-md-btn" class="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs border border-slate-700/80 transition">
+            <i data-lucide="file-text" class="w-3.5 h-3.5 text-indigo-400"></i>
+            Ekspor MD
+          </button>
+          <button id="export-json-btn" class="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs border border-slate-700/80 transition">
+            <i data-lucide="code" class="w-3.5 h-3.5 text-cyan-400"></i>
+            Ekspor JSON
+          </button>
+        </div>
+        
+        <!-- Repo Info Card -->
+        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs space-y-1">
+          <div class="flex items-center justify-between text-slate-400">
+            <span class="flex items-center gap-1.5 font-medium">
+              <i data-lucide="github" class="w-3.5 h-3.5 text-slate-300"></i>
+              GitHub Repo
+            </span>
+            <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded font-mono">Live</span>
+          </div>
+          <a href="https://github.com/khalilurrahmanmahdi12/AI-Productivity-and-AI-API-Integration-for-Developers" target="_blank" class="block text-indigo-400 hover:underline font-mono text-[11px] truncate">
+            khalilurrahmanmahdi12/...
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Chat Workspace (Full Width Container) -->
+    <main class="flex-1 flex flex-col bg-slate-950 overflow-hidden w-full relative">
+
+      <!-- Chat Feed Scrollable Container -->
+      <div id="chat-feed" class="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 space-y-6 w-full max-w-6xl mx-auto">
+        <!-- Messages rendered dynamically -->
+      </div>
+
+      <!-- Quick Prompt Suggestions Bar -->
+      <div id="quick-prompts-container" class="px-4 py-2 border-t border-slate-800/60 bg-slate-950/90 backdrop-blur w-full max-w-6xl mx-auto overflow-x-auto no-scrollbar flex items-center gap-2">
+        <!-- Dynamic prompt tags -->
+      </div>
+
+      <!-- Active Extensions Status Strip -->
+      <div id="active-tools-strip" class="px-4 py-1.5 w-full max-w-6xl mx-auto flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-900 bg-slate-950">
+        <div class="flex items-center gap-4 flex-wrap">
+          <span class="text-slate-500 font-medium">API Integration Active:</span>
+          <span class="flex items-center gap-1 text-slate-300 font-mono"><i data-lucide="github" class="w-3.5 h-3.5 text-purple-400"></i> GitHub REST API</span>
+          <span class="flex items-center gap-1 text-slate-300 font-mono"><i data-lucide="cloud-sun" class="w-3.5 h-3.5 text-amber-400"></i> Weather API</span>
+          <span class="flex items-center gap-1 text-slate-300 font-mono"><i data-lucide="newspaper" class="w-3.5 h-3.5 text-blue-400"></i> HackerNews</span>
+          <span class="flex items-center gap-1 text-slate-300 font-mono"><i data-lucide="terminal" class="w-3.5 h-3.5 text-emerald-400"></i> JS Sandbox</span>
+        </div>
+        <div id="token-usage-counter" class="font-mono text-slate-500 shrink-0">Memory Context: 0 msgs</div>
+      </div>
+
+      <!-- Input Area (Sleek Full-Width Floating Bar) -->
+      <div class="p-4 sm:p-5 border-t border-slate-800/80 bg-slate-900/80 backdrop-blur-md w-full">
+        <form id="chat-form" class="w-full max-w-6xl mx-auto relative flex flex-col gap-2">
+          <div class="relative flex items-center rounded-2xl bg-slate-950 border border-slate-700/80 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/30 transition shadow-2xl">
+            <textarea
+              id="user-input"
+              rows="2"
+              placeholder="Tanyakan kode, refactoring, API lookup (contoh: 'github repo facebook/react'), cuaca dev hub, atau tech news..."
+              class="w-full bg-transparent px-4 py-3.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none resize-none font-sans leading-relaxed"
+            ></textarea>
+            
+            <div class="flex items-center gap-2 pr-3 shrink-0">
+              <button
+                type="button"
+                id="voice-input-btn"
+                title="Voice Input (Speech-to-Text)"
+                class="p-2.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-indigo-400 transition"
+              >
+                <i data-lucide="mic" class="w-4 h-4"></i>
+              </button>
+              
+              <button
+                type="submit"
+                id="send-btn"
+                class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-semibold text-xs shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 active:scale-95"
+              >
+                <span>Kirim</span>
+                <i data-lucide="send" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center justify-between text-[11px] text-slate-400 px-1">
+            <span>Tekan <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px]">Shift + Enter</kbd> untuk baris baru</span>
+            <span id="ai-status-indicator" class="flex items-center gap-1.5 text-emerald-400 font-medium">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> DevPulse AI Ready
+            </span>
+          </div>
+        </form>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Settings & AI Parameter Configuration Modal/Drawer -->
+  <div id="settings-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex justify-end transition-opacity">
+    <div class="w-full max-w-md bg-slate-900 border-l border-slate-800 h-full flex flex-col shadow-2xl overflow-hidden">
+      <!-- Modal Header -->
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="sliders" class="w-5 h-5 text-indigo-400"></i>
+          <h2 class="font-bold text-base text-slate-100">Konfigurasi Parameter AI</h2>
+        </div>
+        <button id="close-settings-btn" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Settings Form -->
+      <div class="flex-1 overflow-y-auto p-5 space-y-6">
+
+        <!-- API Key Configuration -->
+        <div class="space-y-2 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
+          <label class="block text-xs font-semibold text-slate-200 uppercase tracking-wider flex items-center justify-between">
+            <span>Google Gemini API Key</span>
+            <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-normal">Built-in Fallback</span>
+          </label>
+          <input
+            type="password"
+            id="api-key-input"
+            placeholder="AIzaSy... (Biarkan kosong untuk demo mode)"
+            class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-900 border border-slate-700 text-slate-200 focus:outline-none focus:border-indigo-500 font-mono"
+          />
+          <p class="text-[11px] text-slate-400">
+            Jika kunci API diisi, aplikasi akan memanggil Google Gemini API secara riil. Jika kosong, sistem otomatis menggunakan LLM Fallback Engine lokal yang cerdas.
+          </p>
+        </div>
+
+        <!-- Gaya Bahasa / Persona -->
+        <div class="space-y-2">
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="user-check" class="w-4 h-4 text-indigo-400"></i>
+            Gaya Bahasa & Persona AI
+          </label>
+          <select id="persona-select" class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none focus:border-indigo-500">
+            <option value="tech_lead">Tech Lead / Mentor Senior (Profesional, Mendalam, Best Practice)</option>
+            <option value="santai">Santai / Casual (Gaya Dev Peer, Solutif & Friendly)</option>
+            <option value="code_optimizer">Code Optimizer (Singkat, Direct to Code, High Efficiency)</option>
+            <option value="formal">Formal & Structured (Bahasanya Baku, Dokumentasi Rapi)</option>
+            <option value="eli5">ELI5 (Explain Like I'm 5 - Konseptual & Analogi Sederhana)</option>
+          </select>
+        </div>
+
+        <!-- Domain Pengetahuan -->
+        <div class="space-y-2">
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="book-open" class="w-4 h-4 text-cyan-400"></i>
+            Domain Pengetahuan Spesifik
+          </label>
+          <select id="domain-select" class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none focus:border-indigo-500">
+            <option value="webdev">Web Development & Full-Stack (JS/TS, React, Node, CSS)</option>
+            <option value="datascience">Data Science & AI/ML (Python, PyTorch, SQL, Analytics)</option>
+            <option value="devops">DevOps, Docker & Cloud Architecture (CI/CD, Kubernetes, AWS)</option>
+            <option value="system_design">System Design & Security (Scalability, Microservices)</option>
+            <option value="career">Career & Productivity (Code Review, Resume, Workflow Tools)</option>
+          </select>
+        </div>
+
+        <!-- Parameter Temperatur / Kreativitas -->
+        <div class="space-y-2 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Creativity / Temperature</label>
+            <span id="temp-value-display" class="font-mono text-xs text-indigo-400 font-bold">0.7</span>
+          </div>
+          <input
+            type="range"
+            id="temperature-slider"
+            min="0.0"
+            max="1.0"
+            step="0.1"
+            value="0.7"
+            class="w-full accent-indigo-500 cursor-pointer"
+          />
+          <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+            <span>0.0 (Presisi & Konsisten)</span>
+            <span>1.0 (Kreatif & Eksploratif)</span>
+          </div>
+        </div>
+
+        <!-- Memory Configuration -->
+        <div class="space-y-3 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-xs font-semibold text-slate-200 flex items-center gap-1.5">
+                <i data-lucide="brain-circuit" class="w-4 h-4 text-emerald-400"></i>
+                Fitur Memori Percakapan
+              </div>
+              <div class="text-[11px] text-slate-400">Mengingat konteks & preferensi user</div>
+            </div>
+            <input type="checkbox" id="memory-toggle" checked class="w-4 h-4 accent-indigo-500 cursor-pointer">
+          </div>
+          <button id="clear-memory-btn" class="w-full py-2 px-3 rounded-lg bg-slate-800 hover:bg-red-500/20 hover:text-red-300 text-slate-300 text-xs border border-slate-700 transition flex items-center justify-center gap-1.5">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            Reset Memori Percakapan Ini
+          </button>
+        </div>
+
+        <!-- Integrasi API Eksternal & Tools -->
+        <div class="space-y-2 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+            Integrasi API & Modul Tool
+          </label>
+          <div class="space-y-2.5 text-xs">
+            <label class="flex items-center justify-between text-slate-300">
+              <span class="flex items-center gap-2">
+                <i data-lucide="github" class="w-3.5 h-3.5 text-purple-400"></i>
+                GitHub REST API Inspector
+              </span>
+              <input type="checkbox" id="tool-github" checked class="accent-indigo-500">
+            </label>
+            <label class="flex items-center justify-between text-slate-300">
+              <span class="flex items-center gap-2">
+                <i data-lucide="cloud-sun" class="w-3.5 h-3.5 text-amber-400"></i>
+                Live Weather & Timezone API
+              </span>
+              <input type="checkbox" id="tool-weather" checked class="accent-indigo-500">
+            </label>
+            <label class="flex items-center justify-between text-slate-300">
+              <span class="flex items-center gap-2">
+                <i data-lucide="newspaper" class="w-3.5 h-3.5 text-blue-400"></i>
+                Developer Tech News Feed
+              </span>
+              <input type="checkbox" id="tool-news" checked class="accent-indigo-500">
+            </label>
+            <label class="flex items-center justify-between text-slate-300">
+              <span class="flex items-center gap-2">
+                <i data-lucide="terminal" class="w-3.5 h-3.5 text-emerald-400"></i>
+                In-Chat JS Code Executor
+              </span>
+              <input type="checkbox" id="tool-sandbox" checked class="accent-indigo-500">
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 border-t border-slate-800 bg-slate-900/90 flex gap-3">
+        <button id="save-settings-btn" class="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition shadow-lg shadow-indigo-600/30">
+          Simpan Konfigurasi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
