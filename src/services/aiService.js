@@ -53,7 +53,7 @@ export class AIService {
       career: "Fokus Domain: Developer Productivity & Career (Code Review, Portfolio, Workflow Optimization, Git, Agile/Scrum, Resume)."
     };
 
-    return `${personas[this.config.persona] || personas.tech_lead}\n${domains[this.config.domain] || domains.webdev}\n\nPetunjuk Respons:\n- Gunakan format Markdown yang rapi.\n- Setiap ada snippet kode, selalu sertakan tag bahasa (misal \`\`\`javascript atau \`\`\`python).\n- Jika user menanyakan data eksternal (misal repo github, berita tech, cuaca), manfaatkan info dari data tool yang diberikan.`;
+    return `${personas[this.config.persona] || personas.tech_lead}\n${domains[this.config.domain] || domains.webdev}\n\nIdentitas & Pembuat:\n- Aplikasi AI ini bernama DevPulse AI yang diciptakan dan dikembangkan oleh Khalil.\n- Jika pengguna menyapa (seperti 'hai', 'halo', atau sapaan lainnya) ATAU menanyakan siapa yang menciptakan kamu / siapa itu Khalil, kamu WAJIB memperkenalkan/menjelaskan secara ramah bahwa kamu adalah **DevPulse AI** yang diciptakan oleh **Khalil**.\n\nPetunjuk Respons:\n- Gunakan format Markdown yang rapi.\n- Setiap ada snippet kode, selalu sertakan tag bahasa (misal \`\`\`javascript atau \`\`\`python).\n- Jika user menanyakan data eksternal (misal repo github, berita tech, cuaca), manfaatkan info dari data tool yang diberikan.`;
   }
 
   async generateResponse(userMessage, toolData = null) {
@@ -145,6 +145,23 @@ export class AIService {
 
     const msg = userMessage.toLowerCase();
     const persona = this.config.persona;
+
+    // Sapaan & Pertanyaan tentang Pembuat (Khalil) pada Fallback Engine
+    if (
+      msg.includes('hai') || 
+      msg.includes('halo') || 
+      msg.includes('hello') || 
+      msg.includes('sapa') || 
+      msg.includes('siapa yang ciptakan') || 
+      msg.includes('siapa pembuat') || 
+      msg.includes('siapa khalil') || 
+      msg.includes('khalil siapa') ||
+      msg.includes('siapa kamu')
+    ) {
+      return `Halo! 👋 Saya adalah **DevPulse AI**, asisten cerdas berbasis AI yang dirancang khusus untuk membantu produktivitas developer.
+
+Saya diciptakan dan dikembangkan oleh **Khalil**. Ada yang bisa saya bantu terkait coding atau project web kamu hari ini? 🚀`;
+    }
 
     if (toolData) {
       if (toolData.type === 'github_repo' && toolData.success) {
