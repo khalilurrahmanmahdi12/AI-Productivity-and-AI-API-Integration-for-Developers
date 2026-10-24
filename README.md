@@ -8,7 +8,7 @@
 ![GitHub REST API](https://img.shields.io/badge/GitHub_REST_API-Live_Inspector-181717?logo=github&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
-**DevPulse AI** adalah aplikasi web cerdas berbasis Artificial Intelligence (NLP / LLM) yang dirancang dan dibangun oleh **KHALILURRAHMAN MAHDI** sesuai dengan standar kompetensi sertifikasi **Hacktiv8 Indonesia**: *"AI Productivity and AI API Integration for Developers"*.
+**DevPulse AI** adalah aplikasi web cerdas berbasis Artificial Intelligence (NLP / LLM) yang dirancang dan dibangun oleh **KHALILURRAHMAN MAHDI** sesuai dengan standar kompetensi sertifikasi **Maju bareng AIx Hacktiv8 Indonesia**: *"AI Productivity and AI API Integration for Developers"*.
 
 Aplikasi ini memberikan kendali penuh kepada pengembang untuk mengonfigurasi parameter AI secara kreatif (persona, domain spesifik, dan kreativitas suhu), mengelola memori percakapan berkesinambungan (*multi-turn memory*), serta mengintegrasikan berbagai **API Eksternal** secara *real-time* (seperti GitHub REST API, Weather & Timezone API, HackerNews Feed, dan In-Chat JavaScript Code Sandbox) dalam antarmuka web modern yang bersih, antislop, dan responsif.
 
@@ -188,4 +188,3 @@ Hacktiv8 Certified: *AI Productivity and AI API Integration for Developers*
 
 Proyek ini dilisensikan di bawah **MIT License**.  
 Jika proyek ini bermanfaat bagi produktivitas Anda, jangan lupa berikan ⭐ pada repositori ini!
-```
