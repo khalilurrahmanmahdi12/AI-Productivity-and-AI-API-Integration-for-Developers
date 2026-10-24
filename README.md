@@ -1,216 +1,137 @@
-# DevPulse AI — AI Productivity & AI API Integration for Developers
+# DevPulse AI — AI Productivity & AI API Integration for Developers 🚀
 
+![Hacktiv8 Certified](https://img.shields.io/badge/Certified-Hacktiv8_Indonesia-EA580C?logo=academia&logoColor=white)
+![Google Gemini](https://img.shields.io/badge/Google_Gemini-API_Integration-4285F4?logo=google&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-F7DF1E?logo=javascript&logoColor=black)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-Utility--First-06B6D4?logo=tailwindcss&logoColor=white)
-![AI Integration](https://img.shields.io/badge/AI-Gemini_API-4285F4?logo=google&logoColor=white)
-![External APIs](https://img.shields.io/badge/API-External_Integration-0F766E?logo=fastapi&logoColor=white)
-![Responsive UI](https://img.shields.io/badge/UI-Fully_Responsive-18181B?logo=css3&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-22C55E?logo=opensourceinitiative&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38BDF8?logo=tailwindcss&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black)
+![GitHub REST API](https://img.shields.io/badge/GitHub_REST_API-Live_Inspector-181717?logo=github&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
 
-**DevPulse AI** adalah aplikasi asisten kecerdasan buatan (*AI-powered developer productivity assistant*) yang dirancang dan dibangun oleh **KHALILURRAHMAN MAHDI** untuk membantu pengembang perangkat lunak meningkatkan produktivitas melalui bantuan AI, analisis kode, dan integrasi API eksternal.
+**DevPulse AI** adalah aplikasi web cerdas berbasis Artificial Intelligence (NLP / LLM) yang dirancang dan dibangun oleh **KHALILURRAHMAN MAHDI** sesuai dengan standar kompetensi sertifikasi **Hacktiv8 Indonesia**: *"AI Productivity and AI API Integration for Developers"*.
 
-Aplikasi ini menggabungkan antarmuka chatbot interaktif, konfigurasi parameter AI yang fleksibel, memori percakapan, serta berbagai alat bantu pengembangan dalam satu dashboard. Pengguna dapat menyesuaikan persona AI, domain pengetahuan, tingkat kreativitas, dan konfigurasi model sesuai kebutuhan pekerjaan.
-
-DevPulse AI juga menyediakan integrasi dengan GitHub REST API, layanan cuaca dan waktu lokal, Hacker News API, serta *JavaScript code sandbox* untuk menjalankan potongan kode langsung dari antarmuka percakapan. Dukungan Google Gemini API dan *built-in fallback engine* memberikan fleksibilitas dalam menjalankan aplikasi.
+Aplikasi ini memberikan kendali penuh kepada pengembang untuk mengonfigurasi parameter AI secara kreatif (persona, domain spesifik, dan kreativitas suhu), mengelola memori percakapan berkesinambungan (*multi-turn memory*), serta mengintegrasikan berbagai **API Eksternal** secara *real-time* (seperti GitHub REST API, Weather & Timezone API, HackerNews Feed, dan In-Chat JavaScript Code Sandbox) dalam antarmuka web modern yang bersih, antislop, dan responsif.
 
 ---
 
 ## 🚀 Live Demo & Kode Sumber
 
-- 💻 **Repository**: [DevPulse AI — GitHub](https://github.com/khalilurrahmanmahdi12/AI-Productivity-and-AI-API-Integration-for-Developers)
-- 🌐 **Portfolio**: [https://khalildev.web.id/](https://khalildev.web.id/)
-- 🖥️ **Local Development**: `http://localhost:3000`
-- 📄 **Lisensi**: MIT License
+- 📜 **Sertifikat Kompetensi Hacktiv8**: https://students.hacktiv8.com/certificates/c2c97ee5-03d5-4c03-b600-60b41d7c123e
+- 💻 **Local Host**: `http://localhost:3000` (atau `http://localhost:5173`)
+- 📁 **Repository**: [https://github.com/khalilurrahmanmahdi12/AI-Productivity-and-AI-API-Integration-for-Developers](https://github.com/khalilurrahmanmahdi12/AI-Productivity-and-AI-API-Integration-for-Developers)
+- 💼 **Portofolio**: [https://khalildev.web.id/](https://khalildev.web.id/)
 
 ---
 
 ## ✨ Fitur Utama
 
-### 🎯 1. AI Customization & Creative Parameters
+### 🎯 1. Parameter Kreatif & Kustomisasi Persona AI
+Pusat pengaturan perilaku model AI sesuai kebutuhan spesifik pengembang:
+- **Pilihan Gaya Bahasa & Persona AI**:
+  - 🧠 **Tech Lead / Senior Mentor**: Menghasilkan jawaban mendalam, terstruktur, dan berorientasi pada *clean code* serta *best practices*.
+  - ☕ **Santai / Casual Peer Dev**: Gaya komunikasi sejawat yang ramah, santai, dan solutif.
+  - ⚡ **Code Optimizer**: Jawaban ringkas, to-the-point, dan berfokus pada efisiensi algoritma (Big-O Notation).
+  - 📜 **Formal & Structured**: Bahasa Indonesia baku dengan poin-poin sistematis dan dokumentasi rapi.
+  - 👶 **ELI5 (Explain Like I'm 5)**: Menyederhanakan konsep arsitektur rumit dengan analogi dunia nyata.
+- **Domain Pengetahuan Spesifik**:
+  - 🌐 *Web Development & Full-Stack* (React, Node.js, TypeScript, Tailwind)
+  - 📊 *Data Science & AI/ML* (Python, PyTorch, SQL, Prompt Engineering)
+  - ☁️ *DevOps & Cloud Architecture* (Docker, Kubernetes, CI/CD, AWS)
+  - 🏛️ *System Design & Security* (Microservices, Scalability, Caching, OWASP)
+  - 💼 *Career & Productivity* (Code Review, Portfolio, Workflow Tools)
+- **Temperature & Creativity Slider**: Pengaturan fleksibel dari 0.0 (sangat presisi/deterministik) hingga 1.0 (kreatif/eksploratif).
 
-Sistem konfigurasi AI yang memungkinkan pengguna menyesuaikan gaya respons dan fokus pengetahuan sesuai kebutuhan pengembangan perangkat lunak.
+### 🧠 2. Manajemen Memori Konteks Percakapan (Conversation Memory)
+- Menjaga keutuhan riwayat dialog multi-putaran (*multi-turn context awareness*).
+- Indikator status memori aktif pada antarmuka pengguna.
+- Tombol *Reset Memory* untuk membersihkan riwayat percakapan secara instan ketika beralih konteks bahasan.
 
-- **Tech Lead / Mentor Senior**: Memberikan penjelasan mendalam, praktik terbaik, dan rekomendasi *clean code*.
-- **Casual Developer**: Menggunakan gaya komunikasi santai, komunikatif, dan solutif.
-- **Code Optimizer**: Memprioritaskan efisiensi algoritma, optimasi kode, dan analisis kompleksitas Big-O.
-- **Formal & Structured**: Menghasilkan penjelasan sistematis dan dokumentasi terstruktur.
-- **ELI5 (Explain Like I'm 5)**: Menjelaskan konsep teknis melalui analogi sederhana.
-- **Domain Knowledge Selection**: Mendukung fokus Web Development, Data Science & AI/ML, DevOps & Cloud, System Design & Security, serta Career & Productivity.
-- **Temperature Slider**: Mengatur tingkat kreativitas respons dari 0.0 hingga 1.0.
+### 🔌 3. Integrasi Live External Tools & API Real-Time
+1. 🐙 **GitHub REST API Inspector**: Mengambil informasi repositori publik secara langsung (jumlah bintang, fork, open issues, lisensi) serta profil pengembang.
+2. 🌤️ **Live Weather & Timezone API**: Memantau cuaca dan waktu lokal di berbagai pusat teknologi dunia (Jakarta, Nusantara/Kalimantan, Tokyo, San Francisco, London).
+3. 📰 **HackerNews Developer Feed**: Mengambil tren berita teknologi terkini langsung dari HackerNews API.
+4. 🧪 **In-Chat JavaScript Code Sandbox**: Menjalankan snippet kode JavaScript secara aman langsung di dalam UI percakapan dengan penangkap log konsol (*console capture*).
 
-### 🧠 2. Conversation Memory
-
-Fitur memori percakapan untuk mempertahankan konteks interaksi dalam satu rangkaian percakapan.
-
-- Menyimpan dan menggunakan riwayat percakapan untuk mendukung interaksi multi-turn.
-- Menampilkan indikator status memori pada antarmuka.
-- Menyediakan fitur **Reset Memory** untuk menghapus konteks percakapan sesuai implementasi aplikasi.
-
-### 🔌 3. External API Integration
-
-Integrasi layanan eksternal untuk menyediakan informasi dan alat bantu pengembangan secara langsung.
-
-- **GitHub REST API Inspector**: Mengambil informasi repositori publik, seperti jumlah stars, forks, open issues, lisensi, dan informasi profil pengembang.
-- **Live Weather & Local Time**: Menampilkan informasi cuaca dan waktu lokal dari lokasi yang didukung layanan API.
-- **Hacker News Developer Feed**: Menampilkan berita dan topik teknologi terkini melalui Hacker News API.
-- **JavaScript Code Sandbox**: Menjalankan potongan kode JavaScript melalui antarmuka percakapan dengan dukungan penangkapan output console.
-
-### ⚡ 4. Developer Productivity Tools
-
-Kumpulan fitur tambahan untuk mempercepat aktivitas pengembangan perangkat lunak.
-
-- **Prompt Templates**: Akses cepat ke prompt untuk refaktorisasi kode, React Hooks, pencarian GitHub, dan berita teknologi.
-- **Chat Export**: Mengekspor riwayat percakapan ke format Markdown (`.md`) dan JSON (`.json`).
-- **Voice Input**: Memasukkan pesan melalui fitur Speech-to-Text.
-- **Syntax Highlighting**: Menampilkan potongan kode dengan pewarnaan sintaks melalui Prism.js.
-- **Dual-Engine Support**: Mendukung integrasi Google Gemini API dan mesin fallback bawaan sesuai konfigurasi aplikasi.
-
-### 🎨 5. Responsive Developer Dashboard
-
-Antarmuka dirancang untuk memberikan pengalaman penggunaan yang konsisten pada desktop maupun perangkat seluler.
-
-- Tata letak responsif untuk berbagai ukuran layar.
-- Panel konfigurasi AI yang terstruktur.
-- Tampilan percakapan yang mendukung teks, kode, dan hasil integrasi API.
-- Navigasi dan komponen antarmuka yang berorientasi pada produktivitas pengembang.
+### ⚡ 4. Developer Productivity Toolkit
+- 📝 **Preset Template Prompt Quick Action**: Shortcut perintah siap pakai (*Refactor Code, React Hooks, GitHub Search, Tech News*).
+- 📂 **Ekspor Riwayat Percakapan**: Mengunduh seluruh dialog ke format **Markdown (.md)** atau **JSON (.json)** untuk dokumentasi.
+- 🎤 **Voice Input (Speech-to-Text)**: Mendukung input pertanyaan menggunakan suara secara praktis.
+- 🎨 **Code Syntax Highlighting**: Pewarnaan sintaksis kode otomatis menggunakan Prism.js.
+- 🔑 **Dual-Engine Model Architecture**: Mendukung Google Gemini API Key secara langsung, dan dilengkapi *Smart Fallback Engine* bawaan saat berjalan tanpa API key.
 
 ---
 
-## 🏗️ Arsitektur Sistem
+## 🏗️ Visualisasi Arsitektur Pipeline & Integrasi API
 
-DevPulse AI menggunakan arsitektur aplikasi web berbasis JavaScript dengan pemisahan tanggung jawab antara antarmuka pengguna, layanan AI, dan integrasi API eksternal.
+Alur orkestrasi pemrosesan pesan dan eksekusi tool eksternal:
 
 ```text
-[1. User / Developer]
-         |
-         v
-[2. DevPulse AI Web Interface]
-         |
-         v
-[3. Application Logic & State]
-         |
-         +-----------------------------+
-         |                             |
-         v                             v
-[4a. AI Service]              [4b. External API Services]
-         |                             |
-         +------------------+----------+
-                            |
-             +--------------+--------------+
-             |              |              |
-             v              v              v
-       [Gemini API]    [GitHub API]   [Weather / News API]
-             |
-             v
-      [Fallback Engine]
-             |
-             v
-[5. Response Processing & Code Formatting]
-             |
-             v
-[6. Chat Interface & Developer Tools]
-             |
-             v
-[7. Chat Export / JavaScript Sandbox]
+[1. User Interface / Chat Input]
+       │
+       ├─────────────────────────────────────────────┐
+       ↓ (Prompt / Pertanyaan)                       ↓ (Tool Trigger / API Command)
+[2. DevPulse AI Core Engine]                 [3. External API Gateway]
+       │                                             ├── 🐙 GitHub REST API
+       │ (System Prompt + Persona + Memory)          ├── 🌤️ OpenWeather & Timezone API
+       ↓                                             ├── 📰 HackerNews Tech Feed
+[4. Model Service (Gemini / Smart Fallback)]         └── 🧪 In-Chat JS Code Sandbox
+       │                                                     │
+       └──────────────────────┬──────────────────────────────┘
+                              ↓
+              [5. Context Merger & Formatter]
+                              ↓
+       [6. Markdown Rendering, Code Highlights, & UI Response]
 ```
-
-*Catatan: Diagram menggambarkan alur logis aplikasi. Pemanggilan layanan, mekanisme fallback, dan pengelolaan status mengikuti implementasi aktual pada kode sumber.*
 
 ---
 
-## 📸 Screenshots User Interface
+## 📱 Desain Responsif & Antislop UI
 
-Dokumentasi visual aplikasi tersedia pada direktori `screenshots/` di repositori.
-
-### 1. Live Weather & Local Time API Integration
-
-![DevPulse AI Weather API Integration](./screenshots/1_weather_api.png)
-
-Menampilkan integrasi layanan cuaca dan waktu lokal pada antarmuka aplikasi.
-
-### 2. Code Refactoring & JavaScript Sandbox
-
-![DevPulse AI Code Refactoring and Sandbox](./screenshots/2_code_refactor_sandbox.png)
-
-Menampilkan interaksi bantuan kode dan fitur eksekusi JavaScript di dalam aplikasi.
-
-### 3. AI Parameter Configuration
-
-![DevPulse AI Parameter Configuration](./screenshots/3_ai_parameter_config.png)
-
-Menampilkan panel konfigurasi persona, domain pengetahuan, temperature, memori, dan API key.
+Aplikasi ini mengadopsi prinsip desain antislop modern standar alat pengembang profesional (terinspirasi dari Linear.app dan Vercel):
+- **Estetika Minimalis & Fokus**: Memadukan tema gelap/terang modern dengan palet warna netral dan aksen biru pengembang.
+- **Tipografi Bersih**: Tipografi sans-serif modern yang dipadukan dengan font monospace untuk blok kode program.
+- **Tata Letak Mobile-First**:
+  - Modal konfigurasi parameter otomatis menyesuaikan ukuran layar tanpa merusak proporsi kontrol.
+  - Eksekutor sandbox JavaScript dan kartu respons API eksternal responsif di perangkat desktop, tablet, maupun ponsel pintar.
 
 ---
 
 ## 🛠️ Teknologi yang Digunakan
 
-- **JavaScript ES6+** — Logika aplikasi dan interaksi antarmuka.
-- **Vite 5.4** — Development server dan build tool.
-- **Tailwind CSS** — Styling antarmuka berbasis utility classes.
-- **HTML5** — Struktur halaman aplikasi.
-- **CSS3** — Styling khusus dan desain responsif.
-- **Google Gemini API** — Integrasi model AI melalui API.
-- **GitHub REST API** — Pengambilan informasi repositori dan profil publik.
-- **Weather & Time API** — Integrasi informasi cuaca dan waktu lokal.
-- **Hacker News API** — Pengambilan berita dan tren teknologi.
-- **Prism.js** — Syntax highlighting untuk potongan kode.
-- **Web Speech API** — Dukungan input suara apabila tersedia pada browser.
-- **JavaScript Sandbox** — Eksekusi snippet JavaScript sesuai implementasi aplikasi.
-- **Markdown & JSON** — Format ekspor riwayat percakapan.
+- **Vite 5.4** (Next Generation Frontend Tooling)
+- **Vanilla JavaScript (ES6+)**
+- **Tailwind CSS** (Utility-First CSS Framework)
+- **Google Gemini API** (Generative AI Integration)
+- **GitHub REST API v3**
+- **Open-Meteo & Timezone API**
+- **HackerNews Firebase REST API**
+- **Prism.js** (Code Syntax Highlighting)
 
 ---
 
 ## 🚀 Menjalankan Project
 
-### Prasyarat
-
-Pastikan perangkat telah memiliki:
-
-- **Node.js**: versi 18.x atau lebih baru, sesuai kompatibilitas dependensi proyek.
-- **npm**: pengelola paket Node.js.
-
-### 1. Clone Repository
-
+### 1. Clone Repositori
 ```bash
 git clone https://github.com/khalilurrahmanmahdi12/AI-Productivity-and-AI-API-Integration-for-Developers.git
-
 cd AI-Productivity-and-AI-API-Integration-for-Developers
 ```
 
 ### 2. Install Dependensi
-
 ```bash
 npm install
 ```
 
-### 3. Konfigurasi API Key
-
-Jika menggunakan Google Gemini API, siapkan API key sesuai mekanisme konfigurasi yang digunakan proyek.
-
-**Penting:** Jangan memasukkan API key aktif ke repository publik atau menyimpan kredensial sensitif langsung di kode frontend. Variabel lingkungan pada aplikasi frontend Vite tidak otomatis bersifat rahasia setelah aplikasi dibangun untuk production.
-
-### 4. Jalankan Development Server
-
+### 3. Jalankan Development Server
 ```bash
 npm run dev
 ```
+Buka browser pada alamat yang tertera (biasanya `http://localhost:5173` atau `http://localhost:3000`).
 
-Buka URL yang ditampilkan oleh terminal. Jika konfigurasi Vite menggunakan port 3000, aplikasi dapat diakses melalui:
-
-```text
-http://localhost:3000
-```
-
-Jika port tersebut sedang digunakan, Vite dapat memilih port lain sesuai konfigurasi dan ketersediaan port.
-
-### 5. Build untuk Production
-
+### 4. Build untuk Production
 ```bash
 npm run build
 ```
-
-Hasil build production secara default tersedia di direktori `dist/`.
 
 ---
 
@@ -218,53 +139,53 @@ Hasil build production secara default tersedia di direktori `dist/`.
 
 ```text
 AI-Productivity-and-AI-API-Integration-for-Developers/
-├── screenshots/
-│   ├── 1_weather_api.png
-│   ├── 2_code_refactor_sandbox.png
-│   └── 3_ai_parameter_config.png
-├── src/
-│   ├── components/
-│   │   └── PromptTemplates.js
-│   ├── services/
-│   │   ├── aiService.js
-│   │   └── externalApis.js
-│   ├── main.js
-│   └── style.css
-├── index.html
-├── package.json
-├── vite.config.js
-├── README.md
-└── LICENSE
+├── index.html                  # Dokumen HTML Utama
+├── package.json                # Metadata dependensi & skrip proyek
+├── vite.config.js              # Konfigurasi bundler Vite
+├── tailwind.config.js          # Konfigurasi Tailwind CSS
+├── README.md                   # Dokumentasi teknis proyek
+└── src/
+    ├── main.js                 # Logika utama aplikasi & event listeners
+    ├── style.css               # Definisi styling Tailwind & custom styling
+    ├── components/
+    │   └── PromptTemplates.js  # Preset prompt siap pakai untuk developer
+    └── services/
+        ├── aiService.js        # Integrasi Google Gemini API & Fallback Engine
+        └── externalApis.js     # Handler GitHub API, Weather, News & Sandbox
 ```
 
-*Catatan: Struktur di atas mengikuti struktur yang didokumentasikan untuk proyek ini. Jika terdapat perubahan direktori atau berkas pada repository, sesuaikan dokumentasi dengan struktur aktual.*
+---
+
+## 📌 Status Project
+
+- ✅ Pengaturan Parameter AI Kreatif (Persona, Domain, Temperature)
+- ✅ Sistem Memori Percakapan Multi-Turn Berkesinambungan
+- ✅ Integrasi GitHub REST API untuk Inspeksi Repositori & Profil
+- ✅ Integrasi Cuaca & Zona Waktu Global secara Real-Time
+- ✅ Feed Berita Teknologi Terkini dari HackerNews API
+- ✅ In-Chat JavaScript Code Sandbox Executor Aman
+- ✅ Ekspor Percakapan ke Format Markdown (.md) dan JSON (.json)
+- ✅ Input Perintah Suara (Speech-to-Text)
+- ✅ 100% Responsif di Layar Desktop, Tablet, & Smartphone
+- ✅ Verifikasi dan Kepatuhan Kurikulum Sertifikasi Hacktiv8 Indonesia
 
 ---
 
-## 📌 Status Project & Fokus Pengembangan
+## 👨💻 Developer & Creator
 
-- **AI Productivity**: Mengintegrasikan asisten AI dengan konfigurasi persona, domain pengetahuan, dan tingkat kreativitas.
-- **External API Integration**: Menghubungkan aplikasi dengan layanan GitHub, cuaca, waktu lokal, dan berita teknologi.
-- **Developer Tools**: Menyediakan template prompt, syntax highlighting, ekspor percakapan, serta JavaScript sandbox.
-- **Conversation Context**: Mendukung interaksi multi-turn dengan fitur pengelolaan memori percakapan.
-- **Responsive UI**: Mengutamakan pengalaman penggunaan yang konsisten pada desktop dan perangkat seluler.
-- **Modular Architecture**: Memisahkan layanan AI, integrasi API, dan komponen antarmuka agar lebih mudah dipelihara.
+**KHALILURRAHMAN MAHDI**  
+*Software Engineer - Full Stack Developer*  
+Hacktiv8 Certified: *AI Productivity and AI API Integration for Developers*
 
----
-
-## 👨‍💻 Developer & Creator
-
-**KHALILURRAHMAN MAHDI**
-
-*Software Engineer - Full Stack Developer*
-
+- 📜 **Sertifikat Kelulusan**: [students.hacktiv8.com/certificates/c2c97ee5-03d5-4c03-b600-60b41d7c123e](https://students.hacktiv8.com/certificates/c2c97ee5-03d5-4c03-b600-60b41d7c123e)
 - 🔗 **GitHub**: [github.com/khalilurrahmanmahdi12](https://github.com/khalilurrahmanmahdi12)
-- 💼 **Portfolio**: [https://khalildev.web.id/](https://khalildev.web.id/)
-- 📁 **Repository DevPulse AI**: [AI Productivity and AI API Integration for Developers](https://github.com/khalilurrahmanmahdi12/AI-Productivity-and-AI-API-Integration-for-Developers)
+- 💼 **Portofolio**: [https://khalildev.web.id/](https://khalildev.web.id/)
+- 📁 **Project Repository**: [AI-Productivity-and-AI-API-Integration-for-Developers](https://github.com/khalilurrahmanmahdi12/AI-Productivity-and-AI-API-Integration-for-Developers)
 
 ---
 
-## ⭐ Dukungan
+## 📄 Lisensi & Dukungan
 
-Jika DevPulse AI bermanfaat atau menarik bagi Anda, berikan ⭐ pada repository GitHub sebagai bentuk dukungan terhadap proyek ini.
-
+Proyek ini dilisensikan di bawah **MIT License**.  
+Jika proyek ini bermanfaat bagi produktivitas Anda, jangan lupa berikan ⭐ pada repositori ini!
+```
